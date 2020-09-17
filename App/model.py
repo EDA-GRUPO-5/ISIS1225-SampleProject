@@ -28,8 +28,10 @@ assert config
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
+
 Se define la estructura de un catálogo de libros.
 El catálogo tendrá  una lista para los libros.
+
 Los autores, los tags y los años se guardaran en
 tablas de simbolos.
 """
