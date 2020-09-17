@@ -28,10 +28,8 @@ assert config
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
-
 Se define la estructura de un catálogo de libros.
 El catálogo tendrá  una lista para los libros.
-
 Los autores, los tags y los años se guardaran en
 tablas de simbolos.
 """
@@ -39,50 +37,232 @@ tablas de simbolos.
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
+print({'id': None,
+                'budget': None,
+                'genres': None,
+                'imdb_id': None,
+                'original_language': None,
+                'original_title': None,
+                'overview': None,
+                'popularity': None,
+                'production_companies': None,
+                'production_countries': None,
+                'release_date': None,
+                'revenue': None,
+                'runtime': None,
+                'spoken_languages': None,
+                'status': None,
+                'tagline': None,
+                'title': None,
+                'vote_average': None,
+                'vote_count': None,
+                'production_companies_number': None,
+                'production_countries_number': None,
+                'spoken_languages_number': None}.keys())
 
+def newCatalogDetails():
 
-def newCatalog():
-    """ Inicializa el catálogo de libros
-
-    Crea una lista vacia para guardar todos los libros
-
-    Se crean indices (Maps) por los siguientes criterios:
-    Autores
-    ID libros
-    Tags
-    Año de publicacion
-
-    Retorna el catalogo inicializado.
-    """
-    catalog = {'books': None,
-               'bookIds': None,
-               'authors': None,
-               'tags': None,
-               'tagIds': None,
-               'years': None}
-
-    catalog['books'] = lt.newList('SINGLE_LINKED', compareBookIds)
-    catalog['bookIds'] = mp.newMap(200,
+    catalog = { 'id': None,
+                'budget': None,
+                'genres': None,
+                'imdb_id': None,
+                'original_language': None,
+                'original_title': None,
+                'overview': None,
+                'popularity': None,
+                'production_companies': None,
+                'production_countries': None,
+                'release_date': None,
+                'revenue': None,
+                'runtime': None,
+                'spoken_languages': None,
+                'status': None,
+                'tagline': None,
+                'title': None,
+                'vote_average': None,
+                'vote_count': None,
+                'production_companies_number': None,
+                'production_countries_number': None,
+                'spoken_languages_number': None} 
+                
+    catalog['id'] = lt.newList('SINGLE_LINKED', compareBookIds)
+    catalog['budget'] = mp.newMap(4001,
                                    maptype='PROBING',
                                    loadfactor=0.4,
                                    comparefunction=compareMapBookIds)
-    catalog['authors'] = mp.newMap(200,
+    catalog['genres'] = mp.newMap(4001,
                                    maptype='PROBING',
                                    loadfactor=0.4,
-                                   comparefunction=compareAuthorsByName)
-    catalog['tags'] = mp.newMap(1000,
-                                maptype='CHAINING',
-                                loadfactor=0.7,
-                                comparefunction=compareTagNames)
-    catalog['tagIds'] = mp.newMap(1000,
-                                  maptype='CHAINING',
-                                  loadfactor=0.7,
-                                  comparefunction=compareTagIds)
-    catalog['years'] = mp.newMap(500,
-                                 maptype='CHAINING',
-                                 loadfactor=0.7,
-                                 comparefunction=compareMapYear)
+                                   comparefunction=compareMapBookIds)
+    catalog['imbd_id'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['original_languaje'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['original_title'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['overview'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['popularity'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['production_companies'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['production_countries'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['release_date'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['revenue'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['spoken_languages'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['status'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['tagline'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['title'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['vote_average'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['vote_count'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['production_companies_number'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['production_countries_number'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['spoken_languages_number'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
 
+def newCatalogCasting():
+
+    catalog = { 'id': None,
+                'actor1_name': None,
+                'actor1_gender': None,
+                'actor2_name': None,
+                'actor2_gender': None,
+                'actor3_name': None,
+                'actor3_gender': None,
+                'actor4_name': None,
+                'actor4_gender': None,
+                'actor5_name': None,
+                'actor5_gender': None,
+                'actor_number': None,
+                'director_name': None,
+                'director_gender': None,
+                'producer_name': None,
+                'director_number': None,
+                'producer_number': None,
+                'screeplay_name': None,
+                'editor_name': None}
+
+    catalog['id'] = lt.newList('SINGLE_LINKED', compareBookIds)
+    catalog['actor1_name'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['actor1_gender'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['actor2_name'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['actor2_gender'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['actor3_name'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['actor3_gender'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['actor4_name'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['actor4_gender'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['actor5_name'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['actor5_gender'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['actor_number'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['director_name'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['director_gender'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['producer_name'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['director_number'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['producer_number'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['screeplay_name'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    catalog['editor_name'] = mp.newMap(4001,
+                                   maptype='PROBING',
+                                   loadfactor=0.4,
+                                   comparefunction=compareMapBookIds)
+    
     return catalog
 
 
