@@ -76,7 +76,7 @@ def loadMovies(catalog, moviesfile):
       autor, se crea una lista con sus libros
     """
     moviesfile = cf.data_dir + moviesfile
-    input_file = csv.DictReader(open(moviesfile))
+    input_file = csv.DictReader(open(moviesfile, encoding="utf-8"))
     for book in input_file:
         model.addBook(catalog, book)
         authors = book['authors'].split(",")  # Se obtienen los autores

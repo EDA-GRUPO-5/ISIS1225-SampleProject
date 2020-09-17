@@ -39,28 +39,7 @@ tablas de simbolos.
 # -----------------------------------------------------
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
-print({'id': None,
-                'budget': None,
-                'genres': None,
-                'imdb_id': None,
-                'original_language': None,
-                'original_title': None,
-                'overview': None,
-                'popularity': None,
-                'production_companies': None,
-                'production_countries': None,
-                'release_date': None,
-                'revenue': None,
-                'runtime': None,
-                'spoken_languages': None,
-                'status': None,
-                'tagline': None,
-                'title': None,
-                'vote_average': None,
-                'vote_count': None,
-                'production_companies_number': None,
-                'production_countries_number': None,
-                'spoken_languages_number': None}.keys())
+
 
 def newCatalogDetails():
 
@@ -299,16 +278,16 @@ def newTagBook(name, id):
 # Funciones para agregar informacion al catalogo
 
 
-def addBook(catalog, book):
+def addBook(catalog, movie):
     """
     Esta funcion adiciona un libro a la lista de libros,
     adicionalmente lo guarda en un Map usando como llave su Id.
     Finalmente crea una entrada en el Map de años, para indicar que este
     libro fue publicaco en ese año.
     """
-    lt.addLast(catalog['books'], book)
-    mp.put(catalog['bookIds'], book['goodreads_book_id'], book)
-    addBookYear(catalog, book)
+    lt.addLast(catalog['id'], movie)
+    mp.put(catalog['id'], movie['goodreads_book_id'], movie)
+    addBookYear(catalog, movie)
 
 
 def addBookYear(catalog, book):
@@ -454,6 +433,18 @@ def getBooksByYear(catalog, year):
 # ==============================
 # Funciones de Comparacion
 # ==============================
+
+def compareProductionCompanies(id, tag):
+    """
+    Compara dos ids de compañias productoras
+    """
+    tagentry = me.getKey(tag)
+    if (id == tagentry):
+        return 0
+    elif (id > tagentry):
+        return 1
+    else:
+        return -1
 
 
 def compareBookIds(id1, id2):
