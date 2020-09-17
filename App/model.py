@@ -42,24 +42,30 @@ tablas de simbolos.
 
 
 def newCatalog():
-    """ Inicializa el catálogo de libros
 
-    Crea una lista vacia para guardar todos los libros
-
-    Se crean indices (Maps) por los siguientes criterios:
-    Autores
-    ID libros
-    Tags
-    Año de publicacion
-
-    Retorna el catalogo inicializado.
-    """
-    catalog = {'books': None,
-               'bookIds': None,
+    catalog = {'book_id': None,
+               'goodreads_book_id': None,
+               'best_book_id': None,
+               'work_id': None,
+               'books_count': None,
+               'isbn': None,
+               'isbn13': None,
                'authors': None,
-               'tags': None,
-               'tagIds': None,
-               'years': None}
+               'original_publication_year': None,
+               'original_title': None,
+               'title': None,
+               'language_code': None,
+               'average_rating':None,
+               'ratings_count': None,
+               'work_ratings_count': None,
+               'work_text_reviews_count': None,
+               'ratings_1': None,
+               'ratings_2': None,
+               'ratings_3': None,
+               'ratings_4': None,
+               'ratings_5': None,
+               'image_url': None,
+               'small_image_url': None}
 
     catalog['books'] = lt.newList('SINGLE_LINKED', compareBookIds)
     catalog['bookIds'] = mp.newMap(200,
