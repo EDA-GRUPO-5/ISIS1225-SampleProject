@@ -37,13 +37,20 @@ recae sobre el controlador.
 #  Inicializacion del catalogo
 # ___________________________________________________
 
-
-def initCatalog():
+def initCatalogDetails():
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
     # catalog es utilizado para interactuar con el modelo
-    catalog = model.newCatalog()
+    catalog = model.newCatalogDetails()
+    return catalog
+
+def initCatalogCasting():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    # catalog es utilizado para interactuar con el modelo
+    catalog = model.newCatalogCasting()
     return catalog
 
 
@@ -56,20 +63,20 @@ def loadData(catalog, booksfile, tagsfile, booktagsfile):
     """
     Carga los datos de los archivos en el modelo
     """
-    loadBooks(catalog, booksfile)
+    loadMovies(catalog, booksfile)
     loadTags(catalog, tagsfile)
-    loadBooksTags(catalog, booktagsfile)
+    loadCasting(catalog, booktagsfile)
 
 
-def loadBooks(catalog, booksfile):
+def loadMovies(catalog, moviesfile):
     """
     Carga cada una de las lineas del archivo de libros.
     - Se agrega cada libro al catalogo de libros
     - Por cada libro se encuentran sus autores y por cada
       autor, se crea una lista con sus libros
     """
-    booksfile = cf.data_dir + booksfile
-    input_file = csv.DictReader(open(booksfile))
+    moviesfile = cf.data_dir + moviesfile
+    input_file = csv.DictReader(open(moviesfile))
     for book in input_file:
         model.addBook(catalog, book)
         authors = book['authors'].split(",")  # Se obtienen los autores
@@ -88,14 +95,14 @@ def loadTags(catalog, tagsfile):
         model.addTag(catalog, tag)
 
 
-def loadBooksTags(catalog, booktagsfile):
+def loadCasting(catalog, castingfile):
     """
     Carga la información que asocia tags con libros.
     Primero se localiza el tag y se le agrega la información leida.
     Adicionalmente se le agrega una referencia al libro procesado.
     """
-    booktagsfile = cf.data_dir + booktagsfile
-    input_file = csv.DictReader(open(booktagsfile))
+    castingfile = cf.data_dir + castingfile
+    input_file = csv.DictReader(open(castingfile))
     for tag in input_file:
         model.addBookTag(catalog, tag)
 

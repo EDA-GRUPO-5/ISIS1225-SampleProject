@@ -116,28 +116,29 @@ while True:
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo ....")
         # cont es el controlador que se usará de acá en adelante
-        cont = controller.initCatalog()
+        contCast = controller.initCatalogCasting()
+        contDet = controller.initCatalogDetails()
 
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
-        controller.loadData(cont, booksfile, tagsfile, booktagsfile)
-        print('Libros cargados: ' + str(controller.booksSize(cont)))
-        print('Autores cargados: ' + str(controller.authorsSize(cont)))
-        print('Géneros cargados: ' + str(controller.tagsSize(cont)))
+        controller.loadData(contCast, booksfile, tagsfile, booktagsfile)
+        print('Libros cargados: ' + str(controller.booksSize(contCast)))
+        print('Autores cargados: ' + str(controller.authorsSize(contCast)))
+        print('Géneros cargados: ' + str(controller.tagsSize(contCast)))
 
     elif int(inputs[0]) == 3:
         number = input("Buscando libros del año?: ")
-        books = controller.getBooksYear(cont, int(number))
+        books = controller.getBooksYear(contCast, int(number))
         printBooksbyYear(books)
 
     elif int(inputs[0]) == 4:
         authorname = input("Nombre del autor a buscar: ")
-        authorinfo = controller.getBooksByAuthor(cont, authorname)
+        authorinfo = controller.getBooksByAuthor(contCast, authorname)
         printAuthorData(authorinfo)
 
     elif int(inputs[0]) == 5:
         label = input("Etiqueta a buscar: ")
-        books = controller.getBooksByTag(cont, label)
+        books = controller.getBooksByTag(contCast, label)
         printBooksbyTag(books)
     else:
         sys.exit(0)
