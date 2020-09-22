@@ -148,6 +148,8 @@ def newCatalogDetails():
                                    loadfactor=0.4,
                                    comparefunction=compareMapBookIds)
 
+    return catalog
+
 def newCatalogCasting():
 
     catalog = { 'id': None,
@@ -277,7 +279,20 @@ def newTagBook(name, id):
 
 # Funciones para agregar informacion al catalogo
 
+def addMovie(catalogCast, catalogoDet, movie):
+    """
+    Esta funcion adiciona una pelicula a la lista de peliculas,
+    adicionalmente lo guarda en un Map usando como llave su Id.
+    Crea una entrada en el Map de Años, para indicar que esta pelicula
+    fue publicada en ese año
+    """
+    lt.addLast(catalogCast['id'], movie)
+    lt.addLast(catalogoDet['id'], movie)
 
+    mp.put(catalogoDet['title'], movie, movie)
+    #mp.put(catalogoCast['title'], movie['id'], movie)
+    
+    
 def addBook(catalog, movie):
     """
     Esta funcion adiciona un libro a la lista de libros,

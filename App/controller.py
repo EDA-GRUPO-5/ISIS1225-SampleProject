@@ -59,16 +59,16 @@ def initCatalogCasting():
 #  de datos en los modelos
 # ___________________________________________________
 
-def loadData(catalog, booksfile, tagsfile, booktagsfile):
+def loadData(catalogoCast, catalogoDet, booksfile, tagsfile, booktagsfile):
     """
     Carga los datos de los archivos en el modelo
     """
-    loadMovies(catalog, booksfile)
-    loadTags(catalog, tagsfile)
-    loadCasting(catalog, booktagsfile)
+    loadMovies(catalogoCast, catalogoDet, booksfile)
+    loadTags(catalogoCast, tagsfile)
+    loadCasting(catalogoCast, booktagsfile)
 
 
-def loadMovies(catalog, moviesfile):
+def loadMovies(catalogoCast, catalogDet, moviesfile):
     """
     Carga cada una de las lineas del archivo de libros.
     - Se agrega cada libro al catalogo de libros
@@ -77,11 +77,11 @@ def loadMovies(catalog, moviesfile):
     """
     moviesfile = cf.data_dir + moviesfile
     input_file = csv.DictReader(open(moviesfile, encoding="utf-8"))
-    for book in input_file:
-        model.addBook(catalog, book)
-        authors = book['authors'].split(",")  # Se obtienen los autores
+    for movie in input_file:
+        model.addMovie(catalogoCast, catalogDet, movie)
+        authors = movie['authors'].split(",")  # Se obtienen los autores
         for author in authors:
-            model.addBookAuthor(catalog, author.strip(), book)
+            model.addBookAuthor(catalogDet, author.strip(), movie)
 
 
 def loadTags(catalog, tagsfile):
