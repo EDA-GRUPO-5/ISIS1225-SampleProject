@@ -51,7 +51,7 @@ def newCatalogDetails():
                 'vote_average': None,
                 'vote_count': None} 
                 
-    catalog['id'] = lt.newList('SINGLE_LINKED', compareMoviesIds)
+    catalog['id'] = lt.newList('ARRAY_LIST', compareMoviesIds)
     catalog['genres'] = mp.newMap(2000,
                                    maptype='CHAINING',
                                    loadfactor=0.5,
@@ -99,7 +99,7 @@ def newCatalogCasting():
                 'actor_number': None,
                 'director_name': None}
 
-    catalog['id'] = lt.newList('SINGLE_LINKED', compareMoviesIds)
+    catalog['id'] = lt.newList('ARRAY_LIST', compareMoviesIds)
     catalog['actor1_name'] = mp.newMap(2000,
                                    maptype='CHAINING',
                                    loadfactor=0.5,
