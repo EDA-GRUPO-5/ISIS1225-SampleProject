@@ -27,6 +27,8 @@ from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
 
+from time import process_time 
+
 """
 La vista se encarga de la interacción con el usuario.
 Presenta el menu de opciones  y  por cada seleccion
@@ -39,57 +41,10 @@ operación seleccionada.
 # ___________________________________________________
 
 
-booksfile = 'GoodReads/books-small.csv'
-tagsfile = 'GoodReads/tags.csv'
-booktagsfile = 'GoodReads/book_tags-small.csv'
-
-
-# ___________________________________________________
-#  Funciones para imprimir la inforamación de
-#  respuesta.  La vista solo interactua con
-#  el controlador.
-# ___________________________________________________
-
-
-def printAuthorData(author):
-    """
-    Imprime los libros de un autor determinado
-    """
-    if author:
-        print('Autor encontrado: ' + author['name'])
-        print('Promedio: ' + str(author['average_rating']))
-        print('Total de libros: ' + str(lt.size(author['books'])))
-        iterator = it.newIterator(author['books'])
-        while it.hasNext(iterator):
-            book = it.next(iterator)
-            print('Titulo: ' + book['title'] + '  ISBN: ' + book['isbn'])
-    else:
-        print('No se encontro el autor')
-
-
-def printBooksbyTag(books):
-    """
-    Imprime los libros que han sido clasificados con
-    una etiqueta
-    """
-    print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
-    iterator = it.newIterator(books)
-    while it.hasNext(iterator):
-        book = it.next(iterator)
-        print(book['title'])
-
-
-def printBooksbyYear(books):
-    """
-    Imprime los libros que han sido publicados en un
-    año
-    """
-    print('Se encontraron: ' + str(lt.size(books)) + ' Libros')
-    iterator = it.newIterator(books)
-    while it.hasNext(iterator):
-        book = it.next(iterator)
-        print(book['title'])
-
+castingfile = 'Data/MoviesCastingRaw-small.csv'
+detailsfile = 'Data/SmallMoviesDetailsCleaned.csv'
+#castingfile = 'Data/AllMoviesCastingRaw.csv'
+#detailsfile = 'Data/AllMoviesDetailsCleaned.csv'
 
 # ___________________________________________________
 #  Menu principal
@@ -99,10 +54,11 @@ def printBooksbyYear(books):
 def printMenu():
     print("Bienvenido")
     print("1- Inicializar Catálogo")
-    print("2- Cargar información en el catálogo")
-    print("3- Consultar los libros de un año")
-    print("4- Consultar los libros de un autor")
-    print("5- Consultar los Libros por etiqueta")
+    print("2- Descubrir productoras de cine")
+    print("3- Conocer un director")
+    print("4- Conocer un actor")
+    print("5- Entender un género cinematográfico")
+    print("6- Encontrar películas por país")
     print("0- Salir")
 
 
@@ -111,35 +67,73 @@ Menu principal
 """
 while True:
     printMenu()
-    inputs = input('Seleccione una opción para continuar\n')
+    inputs = input('Seleccione una opción para continuar:\n')
 
     if int(inputs[0]) == 1:
-        print("Inicializando Catálogo ....")
+        print("Inicializando Catálogo...")
         # cont es el controlador que se usará de acá en adelante
+        t1_start = process_time()
         contCast = controller.initCatalogCasting()
         contDet = controller.initCatalogDetails()
+        t1_stop = process_time()
+        print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
 
     elif int(inputs[0]) == 2:
-        print("Cargando información de los archivos ....")
-        controller.loadData(contCast, booksfile, tagsfile, booktagsfile)
-        print('Libros cargados: ' + str(controller.booksSize(contCast)))
-        print('Autores cargados: ' + str(controller.authorsSize(contCast)))
-        print('Géneros cargados: ' + str(controller.tagsSize(contCast)))
+        company_name = input("Ingrese la productora de cine a buscar:")
+        t1_start = process_time()
+        production = controller.getMoviesByProductionCompany(contDet, company_name)
+        if production != None:
+            print(production)
+        else:
+            print ("No existe esta productora de cine en el catalogo.")
+        t1_stop = process_time()
+        print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
 
     elif int(inputs[0]) == 3:
-        number = input("Buscando libros del año?: ")
-        books = controller.getBooksYear(contCast, int(number))
-        printBooksbyYear(books)
+        director_name = input("Ingrese el nombre del director a buscar:")
+        t1_start = process_time()
+        director = controller.getMoviesByDirector(contCast, director_name)
+        if director != None:
+            print(director)
+        else:
+            print ("No existe este director en el catalogo.")
+        t1_stop = process_time()
+        print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
 
     elif int(inputs[0]) == 4:
-        authorname = input("Nombre del autor a buscar: ")
-        authorinfo = controller.getBooksByAuthor(contCast, authorname)
-        printAuthorData(authorinfo)
+        actor_name = input("Ingrese el nombre del actor a buscar:")
+        t1_start = process_time()
+        actor = controller.getMoviesByActor(contCast, actor_name)
+        if actor != None:
+            print(actor)
+        else:
+            print ("No existe este actor en el catalogo.")
+        t1_stop = process_time()
+        print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
 
     elif int(inputs[0]) == 5:
-        label = input("Etiqueta a buscar: ")
-        books = controller.getBooksByTag(contCast, label)
-        printBooksbyTag(books)
+        genre = input("Ingrese el nombre del genero a buscar:")
+        t1_start = process_time()
+        genero = controller.getMoviesByGenre(contDet, genre)
+        if genero != None:
+            print(genero)
+        else:
+            print ("No existe este genero en el catalogo.")
+        t1_stop = process_time()
+        print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
+
+    elif int(inputs[0]) == 6:
+        conuntry_name = input("Ingrese el nombre del pais a buscar:")
+        t1_start = process_time()
+        pais = controller.getMoviesByCountry(contDet, conuntry_name)
+        if pais != None:
+            print(director)
+        else:
+            print ("No existe este pais en el catalogo.")
+        t1_stop = process_time()
+        print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
+
     else:
         sys.exit(0)
 sys.exit(0)
+
