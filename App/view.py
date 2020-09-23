@@ -122,9 +122,9 @@ while True:
     elif int(inputs[0]) == 2:
         print("Cargando información de los archivos ....")
         controller.loadData(contCast, contDet, booksfile, tagsfile, booktagsfile)
-        print('Libros cargados: ' + str(controller.booksSize(contCast)))
-        print('Autores cargados: ' + str(controller.authorsSize(contCast)))
-        print('Géneros cargados: ' + str(controller.tagsSize(contCast)))
+        #print('Libros cargados: ' + str(controller.booksSize(contCast)))
+        #print('Autores cargados: ' + str(controller.authorsSize(contCast)))
+        #print('Géneros cargados: ' + str(controller.tagsSize(contCast)))
 
     elif int(inputs[0]) == 3:
         number = input("Buscando libros del año?: ")

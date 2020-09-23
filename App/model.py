@@ -289,7 +289,8 @@ def addMovie(catalogCast, catalogoDet, movie):
     lt.addLast(catalogCast['id'], movie)
     lt.addLast(catalogoDet['id'], movie)
 
-    mp.put(catalogoDet['title'], movie['id'], movie)
+    mp.put(catalogoDet['title'], movie['imdb_id'], movie)
+    #mp.put(catalogoDet['title'], movie['id'], movie)
     #mp.put(catalogoCast['title'], movie['id'], movie)
     
     
