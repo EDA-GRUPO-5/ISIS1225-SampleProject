@@ -51,34 +51,34 @@ def newCatalogDetails():
                 'vote_average': None,
                 'vote_count': None} 
                 
-    catalog['id'] = lt.newList('ARRAY_LIST', compareMoviesIds)
+    catalog['id'] = lt.newList('SINGLE_LINKED', compareMoviesIds)
     catalog['genres'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['original_title'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['production_companies'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['production_countries'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['title'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['vote_average'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['vote_count'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
 
     return catalog
@@ -99,71 +99,81 @@ def newCatalogCasting():
                 'actor_number': None,
                 'director_name': None}
 
-    catalog['id'] = lt.newList('ARRAY_LIST', compareMoviesIds)
+    catalog['id'] = lt.newList('SINGLE_LINKED', compareMoviesIds)
     catalog['actor1_name'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['actor1_gender'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['actor2_name'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['actor2_gender'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['actor3_name'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['actor3_gender'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['actor4_name'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['actor4_gender'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['actor5_name'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['actor5_gender'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['actor_number'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     catalog['director_name'] = mp.newMap(2000,
                                    maptype='CHAINING',
-                                   loadfactor=0.5,
+                                   loadfactor=0.4,
                                    comparefunction=compareMapMoviesIds)
     
     return catalog
 
 # Funciones para agregar informacion al catalogo
 
-def addMovie(catalogCast, catalogoDet, movie):
+def addDetails(catalogoDet, llave, valor):
     """
     Esta funcion adiciona una pelicula a la lista de peliculas,
     adicionalmente lo guarda en un Map usando como llave su Id.
     Crea una entrada en el Map de Años, para indicar que esta pelicula
     fue publicada en ese año
     """
-    lt.addLast(catalogCast['id'], movie)
-    lt.addLast(catalogoDet['id'], movie)
-    mp.put(catalogoDet['title'], movie['id'], movie)
-    mp.put(catalogCast['title'], movie['id'], movie)
+
+    lt.addLast(catalogoDet['id'], valor)
+    mp.put(catalogoDet['title'], llave, valor)
+
+def addCast(catalogoCast, llave, valor):
+    """
+    Esta funcion adiciona una pelicula a la lista de peliculas,
+    adicionalmente lo guarda en un Map usando como llave su Id.
+    Crea una entrada en el Map de Años, para indicar que esta pelicula
+    fue publicada en ese año
+    """
+    
+    lt.addLast(catalogoCast['id'], valor)
+    mp.put(catalogoCast['title'], llave, valor)
 
 def addProductionCompany(catalog, company_name):
     pass
@@ -252,3 +262,19 @@ def compareActorByName(keyname, actor):
         return 1
     else:
         return -1
+
+# ==============================
+# Funciones de consulta
+# ==============================
+
+def castSize(catalog):
+    """
+    Numero Del archivo Casting
+    """
+    return mp.size(catalog['id'])
+
+def detSize(catalog):
+    """
+    Numero Del archivo Details
+    """
+    return mp.size(catalog['id'])
