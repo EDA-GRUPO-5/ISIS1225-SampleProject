@@ -1,0 +1,50 @@
+id;actor1_name;actor1_gender;actor2_name;actor2_gender;actor3_name;actor3_gender;actor4_name;actor4_gender;actor5_name;actor5_gender;actor_number;director_name;director_gender;director_number;producer_name;producer_number;screeplay_name;editor_name
+2;Turo Pajala;0;Susanna Haavisto;0;Matti Pellonpää;2;Eetu Hilkamo;0;none;0;4;Aki Kaurismäki;0;1;none;0;Aki Kaurismäki;Raija Talvio
+3;Matti Pellonpää;2;Kati Outinen;1;Sakari Kuosmanen;2;Esko Nikkari;2;Kylli Köngäs;0;7;Aki Kaurismäki;0;1;Mika Kaurismäki;1;Aki Kaurismäki;Raija Talvio
+5;Tim Roth;2;Antonio Banderas;2;Jennifer Beals;1;Madonna;1;Marisa Tomei;1;24;Allison Anders;1;4;Lawrence Bender;1;none;Margaret Goodspeed
+6;Emilio Estevez;2;Cuba Gooding Jr.;2;Denis Leary;2;Jeremy Piven;2;Peter Greene;2;15;Stephen Hopkins;2;1;Gene Levy;1;Lewis Colick;Tim Wellburn
+8;none;0;none;0;none;0;none;0;none;0;0;Timo Novotny;0;1;Timo Novotny;2;Michael Glawogger;Timo Novotny
+9;Rita Lengyel;1;Milton Welsh;2;none;0;none;0;none;0;2;Marc Meyer;0;2;Marc Meyer;1;none;Marc Meyer
+11;Mark Hamill;2;Harrison Ford;2;Carrie Fisher;1;Peter Cushing;2;Alec Guinness;2;106;George Lucas;2;1;Gary Kurtz;2;none;Marcia Lucas
+12;Albert Brooks;2;Ellen DeGeneres;1;Alexander Gould;2;Willem Dafoe;2;Brad Garrett;2;24;Andrew Stanton;2;1;Graham Walters;1;Andrew Stanton;David Ian Salter
+13;Tom Hanks;2;Robin Wright;1;Gary Sinise;2;Mykelti Williamson;2;Sally Field;1;67;Robert Zemeckis;2;1;Wendy Finerman;3;Eric Roth;Arthur Schmidt
+14;Kevin Spacey;2;Annette Bening;1;Thora Birch;1;Wes Bentley;2;Mena Suvari;1;41;Sam Mendes;2;1;Bruce Cohen;2;Alan Ball;Christopher Greenbury
+15;Orson Welles;2;Joseph Cotten;2;Dorothy Comingore;1;Ray Collins;2;George Coulouris;2;151;Orson Welles;2;1;Orson Welles;2;Orson Welles;Robert Wise
+16;Björk;1;Catherine Deneuve;1;David Morse;2;Peter Stormare;2;Joel Grey;2;29;Lars von Trier;2;1;Vibeke Windeløv;10;none;François Gédigier
+17;Sean Bean;2;Maria Bello;1;Richard Elfyn;2;Maurice Roeves;2;Abigail Stone;1;10;John Fawcett;2;1;Paul W.S. Anderson;3;Stephen Massicotte;Chris Gill
+18;Bruce Willis;2;Gary Oldman;2;Ian Holm;2;Milla Jovovich;1;Chris Tucker;2;115;Luc Besson;2;1;Patrice Ledoux;1;Luc Besson;Sylvie Landra
+19;Brigitte Helm;1;Alfred Abel;2;Gustav Fröhlich;2;Rudolf Klein-Rogge;2;Fritz Rasp;2;21;Fritz Lang;2;1;Erich Pommer;1;Fritz Lang;Fritz Lang
+20;Sarah Polley;1;Amanda Plummer;1;Scott Speedman;2;Leonor Watling;1;Deborah Harry;1;12;Isabel Coixet;1;1;Esther García;2;none;Lisa Robison
+21;none;0;Michael Hynson;0;Robert August;2;Lord 'Tally Ho' Blears;0;Bruce Brown;2;7;Bruce Brown;2;1;Bruce Brown;2;none;Bruce Brown
+22;Johnny Depp;2;Geoffrey Rush;2;Orlando Bloom;2;Keira Knightley;1;Jack Davenport;2;70;Gore Verbinski;2;1;Jerry Bruckheimer;1;Ted Elliott;Stephen E. Rivkin
+24;Uma Thurman;1;Lucy Liu;1;Vivica A. Fox;1;Daryl Hannah;1;David Carradine;2;36;Quentin Tarantino;2;1;Lawrence Bender;2;none;Sally Menke
+25;Jamie Foxx;2;Scott MacDonald;2;none;0;Lucas Black;2;Peter Sarsgaard;2;20;Sam Mendes;2;1;Bobby Cohen;3;none;Walter Murch
+26;Lior Ashkenazi;2;Knut Berger;2;Caroline Peters;1;Gideon Shemer;2;Carola Regnier;1;7;Eytan Fox;2;1;Amir Harel;2;none;Yosef Grunfeld
+27;Kieran O'Brien;2;Margo Stilley;1;Courtney Taylor-Taylor;0;Alex Kapranos;0;Guy Garvey;0;12;Michael Winterbottom;2;1;Michael Winterbottom;2;none;Michael Winterbottom
+28;Martin Sheen;2;Marlon Brando;2;Robert Duvall;2;Frederic Forrest;2;Sam Bottoms;2;35;Francis Ford Coppola;2;1;Francis Ford Coppola;7;Francis Ford Coppola;Walter Murch
+30;Tsutomu Isobe;0;Ami Hasegawa;0;Gara Takashima;0;Kouichi Yamadera;2;none;0;4;Kôji Morimoto;0;1;none;0;none;none
+31;none;0;none;0;none;0;none;0;none;0;0;Tensai Okamura;0;1;none;0;none;none
+32;none;0;Hisao Egawa;0;Nobuaki Fukuda;0;Yu Hayashi;0;Hiroaki Ishikawa;0;20;Katsuhiro Ōtomo;2;1;none;0;none;none
+33;Clint Eastwood;2;Gene Hackman;2;Morgan Freeman;2;Richard Harris;2;Jaimz Woolvett;2;33;Clint Eastwood;2;1;Clint Eastwood;2;David Webb Peoples;Joel Cox
+35;Dan Castellaneta;2;Julie Kavner;1;Nancy Cartwright;1;Yeardley Smith;1;Hank Azaria;2;21;David Silverman;2;1;James L. Brooks;11;Matt Groening;John Carnochan
+38;Jim Carrey;2;Kate Winslet;1;Kirsten Dunst;1;Mark Ruffalo;2;Elijah Wood;2;19;Michel Gondry;2;1;Anthony Bregman;2;Charlie Kaufman;Valdís Óskarsdóttir
+55;Gael García Bernal;2;Vanessa Bauche;1;Goya Toledo;1;Alvaro Guerrero;0;Emilio Echevarría;2;25;Alejandro González Iñárritu;2;1;Alejandro González Iñárritu;4;none;Luis Carballar
+58;Johnny Depp;2;Orlando Bloom;2;Keira Knightley;1;Stellan Skarsgård;2;Bill Nighy;2;33;Gore Verbinski;2;1;Jerry Bruckheimer;3;Ted Elliott;Stephen E. Rivkin
+59;Viggo Mortensen;2;Maria Bello;1;Heidi Hayes;0;Ashton Holmes;2;William Hurt;2;15;David Cronenberg;2;1;Chris Bender;2;Josh Olson;Ronald Sanders
+62;Keir Dullea;2;Gary Lockwood;2;William Sylvester;2;Douglas Rain;2;Daniel Richter;0;60;Stanley Kubrick;2;1;Stanley Kubrick;2;Stanley Kubrick;Ray Lovejoy
+63;Bruce Willis;2;Madeleine Stowe;1;Brad Pitt;2;Christopher Plummer;2;David Morse;2;65;Terry Gilliam;2;1;Charles Roven;1;Janet Peoples;Mick Audsley
+64;Leonor Watling;1;Rosario Flores;1;Javier Cámara;0;Darío Grandinetti;2;Mariola Fuentes;0;18;Pedro Almodóvar;2;1;Agustín Almodóvar;2;Pedro Almodóvar;José Salcedo
+65;Eminem;2;Mekhi Phifer;2;Brittany Murphy;1;Kim Basinger;1;Michael Shannon;2;19;Curtis Hanson;2;1;Curtis Hanson;3;none;Jay Rabinowitz
+66;Clint Eastwood;2;Gene Hackman;2;Ed Harris;2;Scott Glenn;2;Laura Linney;1;11;Clint Eastwood;2;1;Clint Eastwood;3;William Goldman;Joel Cox
+67;Ali Suliman;2;none;0;Amer Hlehel;2;Hiam Abbass;1;Ashraf Barhom;2;7;Hany Abu-Assad;2;1;Bero Beyer;9;none;Sander Vos
+68;Jonathan Pryce;2;Robert De Niro;2;Katherine Helmond;1;Ian Holm;2;Bob Hoskins;2;22;Terry Gilliam;2;1;Arnon Milchan;2;Terry Gilliam;Julian Doyle
+69;Joaquin Phoenix;2;Reese Witherspoon;1;Ginnifer Goodwin;1;Robert Patrick;2;Tyler Hilton;2;45;James Mangold;2;1;James Keach;2;James Mangold;Michael McCusker
+70;Clint Eastwood;2;Hilary Swank;1;Morgan Freeman;2;Jay Baruchel;2;Mike Colter;2;49;Clint Eastwood;2;1;Clint Eastwood;4;Paul Haggis;Joel Cox
+71;Jamie Bell;2;Julie Walters;1;Jean Heywood;1;Jamie Draven;2;Gary Lewis;2;17;Stephen Daldry;2;1;Greg Brenman;6;none;John Wilson
+73;Edward Norton;2;Edward Furlong;2;Beverly D'Angelo;1;Avery Brooks;2;Jennifer Lien;1;53;Tony Kaye;2;1;John Morrissey;1;David McKenna;Gerald B. Greenberg
+74;Tom Cruise;2;Dakota Fanning;1;Miranda Otto;1;Justin Chatwin;2;Tim Robbins;2;29;Steven Spielberg;2;1;Kathleen Kennedy;2;none;Michael Kahn
+75;Jack Nicholson;2;Glenn Close;1;Annette Bening;1;Pierce Brosnan;2;Danny DeVito;2;22;Tim Burton;2;1;Larry J. Franco;3;Jonathan Gems;Chris Lebenzon
+76;Ethan Hawke;2;Julie Delpy;1;Andrea Eckert;1;Hanno Pöschl;0;Karl Bruckschwaiger;2;27;Richard Linklater;2;1;Anne Walker-McBay;1;Richard Linklater;Sandra Adair
+77;Guy Pearce;2;Carrie-Anne Moss;1;Joe Pantoliano;2;Mark Boone Junior;2;Stephen Tobolowsky;2;13;Christopher Nolan;2;1;Jennifer Todd;2;Christopher Nolan;Dody Dorn
+78;Harrison Ford;2;Rutger Hauer;2;Sean Young;1;Edward James Olmos;2;Joe Turkel;0;18;Ridley Scott;2;1;Michael Deeley;1;Hampton Fancher;Marsha Nakashima
+79;Jet Li;2;Tony Leung Chiu-Wai;2;Maggie Cheung;1;Donnie Yen;2;Zhang Ziyi;1;27;Zhang Yimou;2;1;Zhang Yimou;3;none;Angie Lam
