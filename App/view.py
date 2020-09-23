@@ -27,7 +27,7 @@ def printProductionCompany(production): #Imprime las peliculas de una productora
     else:
         print('No se encontro la productora de cine en el catalogo')
     t1_stop = process_time()
-    print ("Tiempo de ejecucion:", t1_start-t1_stop,"segundos")
+    print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
 def printDirectorData(director): #Imprime las peliculas de un director determinado
     t1_start = process_time()
@@ -42,7 +42,7 @@ def printDirectorData(director): #Imprime las peliculas de un director determina
     else:
         print('No se encontro el director en el catalogo')
     t1_stop = process_time()
-    print ("Tiempo de ejecucion:", t1_start-t1_stop,"segundos")
+    print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
 def printActorData(actor): #Imprime las peliculas de un actor determinado
     t1_start = process_time()
@@ -57,7 +57,7 @@ def printActorData(actor): #Imprime las peliculas de un actor determinado
     else:
         print('No se encontro el actor en el catalogo')
     t1_stop = process_time()
-    print ("Tiempo de ejecucion:", t1_start-t1_stop,"segundos")
+    print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
 def printGenreData(genero): #Imprime las peliculas de un genero cinematografico determinado
     t1_start = process_time()
@@ -72,7 +72,7 @@ def printGenreData(genero): #Imprime las peliculas de un genero cinematografico 
     else:
         print('No se encontro el genero cinematografico en el catalogo')
     t1_stop = process_time()
-    print ("Tiempo de ejecucion:", t1_start-t1_stop,"segundos")
+    print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
 def printMoviesbyCountry(country): #Imprime las peliculas que han sido producidas en un pais
     t1_start = process_time()
@@ -82,12 +82,12 @@ def printMoviesbyCountry(country): #Imprime las peliculas que han sido producida
         movie = it.next(iterator)
         print(movie['original_title'])
     t1_stop = process_time()
-    print ("Tiempo de ejecucion:", t1_start-t1_stop,"segundos")
+    print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
 #Menu principal
 
 def printMenu():
-    print("***Bienvenido***")
+    print("\nBienvenido")
     print("1- Inicializar Catálogo")
     print("2- Cargar información en el catálogo")
     print("3- Descubrir productora de cine")
@@ -101,14 +101,17 @@ def printMenu():
 
 while True:
     printMenu()
-    inputs = input('Seleccione una opción para continuar\n')
+    inputs = input('\nSeleccione una opción para continuar\n')
 
     if int(inputs[0]) == 1:
         print("Inicializando Catálogo...") #cont es el controlador que se usará de acá en adelante
+        t1_start = process_time()
         cont = controller.initCatalog()
+        t1_stop = process_time()
+        print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
     elif int(inputs[0]) == 2:
-        print("Cargando información de los archivos...")
+        print("Cargando información de los archivos...\n")
         controller.loadData(cont, detailsfile, castingfile)
         t1_start = process_time()
         print('Productoras de cine cargadas: ' + str(controller.productionCompanySize(cont)))
@@ -117,7 +120,7 @@ while True:
         print('Géneros cinematograficos cargados: ' + str(controller.generosSize(cont)))
         print('Paises cargados: ' + str(controller.countrySize(cont)))
         t1_stop = process_time()
-        print ("Tiempo de ejecucion:", t1_start-t1_stop,"segundos")
+        print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
     elif int(inputs[0]) == 3: #Productora de cine
         productionName = input("Nombre de la productora de cine a buscar: ")
@@ -127,7 +130,7 @@ while True:
     elif int(inputs[0]) == 4: #Director
         directorName = input("Nombre del director a buscar: ")
         directorinfo = controller.getMoviesByDirector(cont, directorName)
-        PrintDirectorData(directorinfo)
+        printDirectorData(directorinfo)
 
     elif int(inputs[0]) == 5: #Actor
         actorName = input("Nombre del actor a buscar: ")
@@ -146,3 +149,4 @@ while True:
     else:
         sys.exit(0)
 sys.exit(0)
+
