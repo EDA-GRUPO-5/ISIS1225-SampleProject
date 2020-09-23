@@ -24,7 +24,6 @@ import config as cf
 from App import model
 import csv
 
-
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 Existen algunas operaciones en las que se necesita invocar
@@ -52,104 +51,81 @@ def initCatalogCasting():
     # catalog es utilizado para interactuar con el modelo
     catalog = model.newCatalogCasting()
     return catalog
+# _____________________________________________________________________________
+#  Funciones para la carga de datos y almacenamiento de datos en los modelos
+# _____________________________________________________________________________
 
-
-# ___________________________________________________
-#  Funciones para la carga de datos y almacenamiento
-#  de datos en los modelos
-# ___________________________________________________
-
-def loadData(catalogoCast, catalogoDet, booksfile, tagsfile, booktagsfile):
+def loadData(catalogoCast, catalogoDet, castingfile, detailsfile):
     """
     Carga los datos de los archivos en el modelo
     """
-    loadMovies(catalogoCast, catalogoDet, booksfile)
-    loadTags(catalogoCast, tagsfile)
-    loadCasting(catalogoCast, booktagsfile)
+    loadDetails(catalogoDet, detailsfile)
+    loadCasting(catalogoCast, castingfile)
 
 
-def loadMovies(catalogoCast, catalogDet, moviesfile):
+def loadDetails(catalog, detailsfile):
     """
-    Carga cada una de las lineas del archivo de libros.
-    - Se agrega cada libro al catalogo de libros
-    - Por cada libro se encuentran sus autores y por cada
-      autor, se crea una lista con sus libros
+    Carga la información que asocia detalles con peliculas.
+    Primero se localiza el tag y se le agrega la información leida.
+    Adicionalmente se le agrega una referencia al libro procesado.
     """
-    moviesfile = cf.data_dir + moviesfile
-    input_file = csv.DictReader(open(moviesfile, encoding="utf-8"))
-    for movie in input_file:
-        model.addMovie(catalogoCast, catalogDet, movie)
-        authors = movie['authors'].split(",")  # Se obtienen los autores
-        for author in authors:
-            model.addBookAuthor(catalogDet, author.strip(), movie)
-
-
-def loadTags(catalog, tagsfile):
-    """
-    Carga en el catalogo los tags a partir de la informacion
-    del archivo de etiquetas
-    """
-    tagsfile = cf.data_dir + tagsfile
-    input_file = csv.DictReader(open(tagsfile))
-    for tag in input_file:
-        model.addTag(catalog, tag)
-
+    detailsfile = cf.data_dir + detailsfile
+    with open(detailsfile, encoding="utf-8") as r:
+        key = list(r)[0]
+        for value in r:
+            value = value.split(";")
+            model.addDetails(catalog, key, value)
+            
 
 def loadCasting(catalog, castingfile):
     """
-    Carga la información que asocia tags con libros.
+    Carga la información que asocia casting con peliculas.
     Primero se localiza el tag y se le agrega la información leida.
     Adicionalmente se le agrega una referencia al libro procesado.
     """
     castingfile = cf.data_dir + castingfile
-    input_file = csv.DictReader(open(castingfile))
-    for tag in input_file:
-        model.addBookTag(catalog, tag)
-
+    with open(castingfile, encoding="utf-8") as r:
+        key = list(r)[0]
+        for value in r:
+            value = value.split(";")
+            model.addDetails(catalog, key, value)
 
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
 
-def booksSize(catalog):
-    """Numero de libros leido
+def detSize(catalog):
     """
-    return model.booksSize(catalog)
-
-
-def authorsSize(catalog):
-    """Numero de autores leido
+    Del archivo Details
     """
-    return model.authorsSize(catalog)
+    return model.detSize(catalog)
 
-
-def tagsSize(catalog):
-    """Numero de tags leido
+def castSize(catalog):
     """
-    return model.tagsSize(catalog)
-
-
-def getBooksByAuthor(catalog, authorname):
+    Del archivo Casting
     """
-    Retorna los libros de un autor
-    """
-    authorinfo = model.getBooksByAuthor(catalog, authorname)
-    return authorinfo
+    return model.castSize(catalog)
 
+# ____________________________________
+#  Funciones Requerimientos Reto 2
+# ____________________________________
 
-def getBooksByTag(catalog, tagname):
-    """
-    Retorna los libros que han sido marcados con
-    una etiqueta
-    """
-    books = model.getBooksByTag(catalog, tagname)
-    return books
+def getMoviesByProductionCompany(catalog, company_name):
+    productioninfo = model.getmoviesByProductionCompany(catalog, company_name)
+    return productioninfo
 
+def getMoviesByDirector(catalog, director_name):
+    directorinfo = model.getMoviesByDirector(catalog, director_name)
+    return directorinfo
 
-def getBooksYear(catalog, year):
-    """
-    Retorna los libros que fueron publicados
-    en un año
-    """
-    books = model.getBooksByYear(catalog, year)
-    return books
+def getMoviesByActor(catalog, actor_name):
+    actorinfo = model.getMoviesByActor(catalog, actor_name)
+    return actorinfo
+
+def getMoviesByGenre(catalog, genre):
+    genreinfo = model.getMoviesByGenre(catalog, genre)
+    return genreinfo
+    
+def getMoviesByCountry(catalog, country_name):
+    countryinfo = model.getMoviesByCountry(catalog, country_name)
+    return countryinfo

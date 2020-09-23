@@ -153,17 +153,27 @@ def newCatalogCasting():
 
 # Funciones para agregar informacion al catalogo
 
-def addMovie(catalogCast, catalogoDet, movie):
+def addDetails(catalogoDet, llave, valor):
     """
     Esta funcion adiciona una pelicula a la lista de peliculas,
     adicionalmente lo guarda en un Map usando como llave su Id.
     Crea una entrada en el Map de Años, para indicar que esta pelicula
     fue publicada en ese año
     """
-    lt.addLast(catalogCast['id'], movie)
-    lt.addLast(catalogoDet['id'], movie)
-    mp.put(catalogoDet['title'], movie['id'], movie)
-    mp.put(catalogCast['title'], movie['id'], movie)
+
+    lt.addLast(catalogoDet['id'], valor)
+    mp.put(catalogoDet['title'], llave, valor)
+
+def addCast(catalogoCast, llave, valor):
+    """
+    Esta funcion adiciona una pelicula a la lista de peliculas,
+    adicionalmente lo guarda en un Map usando como llave su Id.
+    Crea una entrada en el Map de Años, para indicar que esta pelicula
+    fue publicada en ese año
+    """
+    
+    lt.addLast(catalogoCast['id'], valor)
+    mp.put(catalogoCast['title'], llave, valor)
 
 def addProductionCompany(catalog, company_name):
     pass
@@ -252,3 +262,19 @@ def compareActorByName(keyname, actor):
         return 1
     else:
         return -1
+
+# ==============================
+# Funciones de consulta
+# ==============================
+
+def castSize(catalog):
+    """
+    Numero Del archivo Casting
+    """
+    return mp.size(catalog['id'])
+
+def detSize(catalog):
+    """
+    Numero Del archivo Details
+    """
+    return mp.size(catalog['id'])
