@@ -55,45 +55,56 @@ def initCatalogCasting():
 #  Funciones para la carga de datos y almacenamiento de datos en los modelos
 # _____________________________________________________________________________
 
-def loadData(catalogoCast, catalogoDet, castingfile, detailsfile, moviesfile):
+def loadData(catalogoCast, catalogoDet, castingfile, detailsfile):
     """
     Carga los datos de los archivos en el modelo
     """
-    loadMovies(catalogoCast, catalogoDet, moviesfile)
     loadDetails(catalogoDet, detailsfile)
     loadCasting(catalogoCast, castingfile)
 
-def loadMovies(catalogoCast, catalogDet, moviesfile):
-    """
-    Carga cada una de las lineas del archivo de libros.
-    - Se agrega cada libro al catalogo de libros
-    - Por cada libro se encuentran sus autores y por cada
-      autor, se crea una lista con sus libros
-    """
-    moviesfile = cf.data_dir + moviesfile
-    input_file = csv.DictReader(open(moviesfile, encoding="utf-8"))
-    for movie in input_file:
-        model.addMovie(catalogoCast, catalogDet, movie)
-        director = movie['director_name'].split(",")  # Se obtienen los autores
-        for direc in director:
-            model.addMovieDirector(catalogDet, director.strip(), direc)
 
 def loadDetails(catalog, detailsfile):
+    """
+    Carga la información que asocia detalles con peliculas.
+    Primero se localiza el tag y se le agrega la información leida.
+    Adicionalmente se le agrega una referencia al libro procesado.
+    """
     detailsfile = cf.data_dir + detailsfile
-    input_file = csv.DictReader(open(detailsfile))
-    for details in input_file:
-        model.addDetails(catalog, details)
+    with open(detailsfile, encoding="utf-8") as r:
+        key = list(r)[0]
+        for value in r:
+            value = value.split(";")
+            model.addDetails(catalog, key, value)
+            
 
 def loadCasting(catalog, castingfile):
     """
-    Carga la información que asocia tags con libros.
+    Carga la información que asocia casting con peliculas.
     Primero se localiza el tag y se le agrega la información leida.
     Adicionalmente se le agrega una referencia al libro procesado.
     """
     castingfile = cf.data_dir + castingfile
-    input_file = csv.DictReader(open(castingfile))
-    for casting in input_file:
-        model.addCasting(catalog, casting)
+    with open(castingfile, encoding="utf-8") as r:
+        key = list(r)[0]
+        for value in r:
+            value = value.split(";")
+            model.addDetails(catalog, key, value)
+
+# ___________________________________________________
+#  Funciones para consultas
+# ___________________________________________________
+
+def detSize(catalog):
+    """
+    Del archivo Details
+    """
+    return model.detSize(catalog)
+
+def castSize(catalog):
+    """
+    Del archivo Casting
+    """
+    return model.castSize(catalog)
 
 # ____________________________________
 #  Funciones Requerimientos Reto 2
