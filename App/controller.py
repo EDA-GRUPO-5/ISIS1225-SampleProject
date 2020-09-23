@@ -71,10 +71,15 @@ def loadDetails(catalog, detailsfile):
     """
     detailsfile = cf.data_dir + detailsfile
     with open(detailsfile, encoding="utf-8") as r:
-        key = list(r)[0]
-        for value in r:
-            value = value.split(";")
-            model.addDetails(catalog, key, value)
+        key = ""
+        for line in r:
+            l = line.split(";")
+            l[-1]=l[-1][:-1]
+            if key == "":
+                key = l
+            else:
+                print(l)
+                model.addDetails(catalog, key, l)
             
 
 def loadCasting(catalog, castingfile):

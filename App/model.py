@@ -160,9 +160,10 @@ def addDetails(catalogoDet, llave, valor):
     Crea una entrada en el Map de Años, para indicar que esta pelicula
     fue publicada en ese año
     """
-
     lt.addLast(catalogoDet['id'], valor)
-    mp.put(catalogoDet['title'], llave, valor)
+    print("hecho lista")
+    mp.put(catalogoDet['title'], llave[0], valor)
+    print("hecho map")
 
 def addCast(catalogoCast, llave, valor):
     """
