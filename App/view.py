@@ -41,10 +41,10 @@ operación seleccionada.
 # ___________________________________________________
 
 
-castingfile = 'Data/MoviesCastingRaw-small.csv'
-detailsfile = 'Data/SmallMoviesDetailsCleaned.csv'
-#castingfile = 'Data/AllMoviesCastingRaw.csv'
-#detailsfile = 'Data/AllMoviesDetailsCleaned.csv'
+castingfile = 'MoviesCastingRaw-smaller.csv'
+detailsfile = 'SmallerMoviesDetailsCleaned.csv'
+#castingfile = 'AllMoviesCastingRaw.csv'
+#detailsfile = 'AllMoviesDetailsCleaned.csv'
 
 # ___________________________________________________
 #  Menu principal
@@ -79,6 +79,12 @@ while True:
         print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
 
     elif int(inputs[0]) == 2:
+        print("Cargando archivos en Catalogos...")
+        controller.loadData(contCast, contDet, castingfile, detailsfile)
+        print('Detalles cargados: ' + str(controller.detSize(contDet)))
+        print('Casting cargados: ' + str(controller.castSize(contCast)))
+
+    elif int(inputs[0]) == 3:
         company_name = input("Ingrese la productora de cine a buscar:")
         t1_start = process_time()
         production = controller.getMoviesByProductionCompany(contDet, company_name)
@@ -89,7 +95,7 @@ while True:
         t1_stop = process_time()
         print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
 
-    elif int(inputs[0]) == 3:
+    elif int(inputs[0]) == 4:
         director_name = input("Ingrese el nombre del director a buscar:")
         t1_start = process_time()
         director = controller.getMoviesByDirector(contCast, director_name)
@@ -100,7 +106,7 @@ while True:
         t1_stop = process_time()
         print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
 
-    elif int(inputs[0]) == 4:
+    elif int(inputs[0]) == 5:
         actor_name = input("Ingrese el nombre del actor a buscar:")
         t1_start = process_time()
         actor = controller.getMoviesByActor(contCast, actor_name)
@@ -111,7 +117,7 @@ while True:
         t1_stop = process_time()
         print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
 
-    elif int(inputs[0]) == 5:
+    elif int(inputs[0]) == 6:
         genre = input("Ingrese el nombre del genero a buscar:")
         t1_start = process_time()
         genero = controller.getMoviesByGenre(contDet, genre)
@@ -122,7 +128,7 @@ while True:
         t1_stop = process_time()
         print ("Tiempo de ejecución:", t1_stop-t1_start,"segundos\n")
 
-    elif int(inputs[0]) == 6:
+    elif int(inputs[0]) == 7:
         conuntry_name = input("Ingrese el nombre del pais a buscar:")
         t1_start = process_time()
         pais = controller.getMoviesByCountry(contDet, conuntry_name)
