@@ -19,7 +19,6 @@ def initCatalogo():
 # ___________________________________________________
 
 def loadData (data_link, data, sep=";"):
-    print(data_link)
     linkD, linkC = data_link
     loadCSVFile(linkC, linkD, data,sep)
 
@@ -47,7 +46,7 @@ def iniciarDescubrirProductoras(catalogo, productora):
         movie = lt.getElement(companyData[0], i)
         titulos["elements"].append(movie['title'])
 
-    print("\n" + productora,"cuenta con" + str(companyData[2]) + "películas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_average) es: " + str(companyData[1]))
+    print("\n" + productora,"cuenta con " + str(companyData[2]) + " películas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_average) es: " + str(companyData[1]))
 
 def iniciarConocerDirector(catalogo, director):
     directorData = model.conocerDirctor(catalogo, director)
@@ -56,7 +55,7 @@ def iniciarConocerDirector(catalogo, director):
         movie = lt.getElement(directorData[0], i)
         titles["elements"].append(movie['title'])
 
-    print("\n" + director,"tiene" + str(directorData[2]) + "películas. Los nombres son: " + str(titles["elements"]) + ". Su promedio de votos es: " + str(directorData[1]))
+    print("\n" + director,"tiene " + str(directorData[2]) + " películas. Los nombres son: " + str(titles["elements"]) + ". Su promedio de votos es: " + str(directorData[1]))
     
 def iniciarEntenderGenero(catalogo, genero):
     genreData = model.entenderGenero(catalogo, genero)
@@ -65,4 +64,4 @@ def iniciarEntenderGenero(catalogo, genero):
         movie = lt.getElement(genreData[0], i)
         titulos["elements"].append(movie['title'])
     
-    print("\nEl género" + genero,"cuenta con" + str(genreData[2]) + "peliculas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_count) es: " + str(genreData[1]))
+    print("\nEl género " + genero,"cuenta con " + str(genreData[2]) + " peliculas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_count) es: " + str(genreData[1]))
