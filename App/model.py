@@ -206,8 +206,27 @@ def addProductionCompany (catalogo, movie) :
         moviesNum = lt.size(company["movies"])
         company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
         
-def addDirector(catalogo, movie):
-    pass
+def addDirector (catalogo, movie) :
+    directores = catalogo["director_name"]
+    movieId = movie["id"]
+    name = movie["director_name"]
+    existdirector = mp.contains(directores, name)
+    if existdirector:
+        entry = mp.get(directores, name)
+        director = me.getValue(entry)
+    else:
+        director = newDirector()
+        mp.put(directores, name, director)
+    lt.addLast(director['movies'], movieId)
+
+    directorAverage = director["vote_average"]
+    movieAverage = movie["vote_average"]
+    if (movieAverage == 0.0):
+        director["vote_average"] = float(movieAverage)
+    else:
+        total = lt.size(director["movies"])
+        director["vote_average"] = ((directorAverage*(total-1)) + float(movieAverage)) / total
+
 
 def addGenres (catalogo, movie) :
     genres = catalogo["genres"]
