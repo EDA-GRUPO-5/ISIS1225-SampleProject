@@ -1,236 +1,212 @@
-"""
- * Copyright 2020, Departamento de sistemas y Computación
- * Universidad de Los Andes
- *
- *
- * Desarrolado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
- *
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- """
 import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 assert config
 
-"""
-En este archivo definimos los TADs que vamos a usar,
-es decir contiene los modelos con los datos en memoria
-
-Se define la estructura de un catálogo de libros.
-El catálogo tendrá  una lista para los libros.
-
-Los autores, los tags y los años se guardaran en
-tablas de simbolos.
-"""
-
 # -----------------------------------------------------
-# API del TAD Catalogo de Libros
+# API del TAD Catalogo de Películas
 # -----------------------------------------------------
 
-def newCatalogDetails():
+info = {
+    "numelements" : 2000,
+    "maptype" : 'CHAINING',
+    "loadfactor": 1,
+    "listtype" : 'ARRAY_LIST'
+}
 
-    catalog = { 'id': None,
-                'genres': None,
-                'original_title': None,
-                'production_companies': None,
-                'production_countries': None,
-                'title': None,
-                'vote_average': None,
-                'vote_count': None} 
-                
-    catalog['id'] = lt.newList('SINGLE_LINKED', compareMoviesIds)
-    catalog['genres'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['original_title'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['production_companies'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['production_countries'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['title'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['vote_average'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['vote_count'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
+elements = info["numelements"]
 
-    return catalog
+def newCatalog():
+    catalogo = {
+        "movies" : None,
+        "production_company" : None
+    }
 
-def newCatalogCasting():
+    catalogo["movies"] = mp.newMap(
+                                    numelements = info["numelements"],
+                                    maptype=info["maptype"],
+                                    loadfactor=info["loadfactor"],
+                                    comparefunction=compareMoviesIds
+                                    )
+    catalogo["production_company"] = mp.newMap (
+                                    numelements = info["numelements"],
+                                    maptype=info["maptype"],
+                                    loadfactor=info["loadfactor"],
+                                    comparefunction=compareProductionCompanies
+                                    )
+    catalogo["genres"] = mp.newMap (
+                                    numelements = info["numelements"],
+                                    maptype=info["maptype"],
+                                    loadfactor=info["loadfactor"],
+                                    comparefunction=compareGenres
+                                    )    
+    return catalogo
 
-    catalog = { 'id': None,
-                'actor1_name': None,
-                'actor1_gender': None,
-                'actor2_name': None,
-                'actor2_gender': None,
-                'actor3_name': None,
-                'actor3_gender': None,
-                'actor4_name': None,
-                'actor4_gender': None,
-                'actor5_name': None,
-                'actor5_gender': None,
-                'actor_number': None,
-                'director_name': None}
 
-    catalog['id'] = lt.newList('SINGLE_LINKED', compareMoviesIds)
-    catalog['actor1_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['actor1_gender'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['actor2_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['actor2_gender'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['actor3_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['actor3_gender'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['actor4_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['actor4_gender'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['actor5_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['actor5_gender'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['actor_number'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    catalog['director_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareMapMoviesIds)
-    
-    return catalog
+def newMovie(data: dict):
+        data["id"] = int(data["id"])
+        data["budget"] = int(data["budget"])
+        data["genres"] = data["genres"]
+        data["imdb_id"] = data["imdb_id"] 
+        data["original_language"] = data["original_language"] 
+        data["original_title"] = data["original_title"] 
+        data["overview"] = data["overview"]
+        data["popularity"] = data["popularity"]
+        data["production_companies"] = data["production_companies"] 
+        data["production_countries"] = data["production_countries"] 
+        data["release_date"] = data["release_date"]
+        data["revenue"] = int(data["revenue"])
+        data["runtime"] = int(data["runtime"]) 
+        data["spoken_languages"] = data["spoken_languages"] 
+        data["status"] = data["status"]
+        data["tagline"] = data["tagline"]
+        data["title"] = data["title"]
+        data["vote_average"] = float(data["vote_average"]) 
+        data["vote_count"] = int(data["vote_count"])
+        data["production_companies_number"] = int(data["production_companies_number"]) 
+        data["production_countries_number"] = int(data["production_countries_number"]) 
+        data["spoken_languages_number"] = int(data["spoken_languages_number"])
+        data["actor1_name"] = data["actor1_name"]
+        data["actor1_gender"] = int(data["actor1_gender"]) 
+        data["actor2_name"] = data["actor2_name"]
+        data["actor2_gender"] = int(data["actor2_gender"])
+        data["actor3_name"] = data["actor3_name"]
+        data["actor3_gender"] = int(data["actor3_gender"]) 
+        data["actor4_name"] = data["actor4_name"]
+        data["actor4_gender"] = int(data["actor4_gender"]) 
+        data["actor5_name"] = data["actor5_name"]
+        data["actor5_gender"] = int(data["actor5_gender"]) 
+        data["actor_number"] = int(data["actor_number"])
+        data["director_name"] = data["director_name"]
+        data["director_gender"] = data["director_gender"] 
+        data["director_number"] = int(data["director_number"]) 
+        data["producer_name"] = data["producer_name"]
+        data["producer_number"] = int(data["producer_number"]) 
+        data["screeplay_name"] = data["screeplay_name"]
+        data["editor_name"] = data["editor_name"]
+
+def newProductionCompany():
+    company = {
+        "movies": lt.newList(info["listtype"]),
+        "vote_average": 0
+        }
+    return company
+
+def newGenres():
+    genres = {
+        "movies": lt.newList(info["listtype"]),
+        "vote_count": 0
+        }
+    return genres
+
+# ==============================
+# Funciones de consulta
+# ==============================
+
+
+def getMovie(catalog, movieId):
+    movie = mp.get(catalog["movies"], movieId)
+    if movie:
+        return me.getValue(movie)
+    return None
+
+def getMoviesByCompany(catalog, companyName):
+    """
+    Retorna un autor con sus libros a partir del nombre del autor
+    """
+    productionCompany = mp.get(catalog["production_company"], companyName)
+    if productionCompany:
+        companyData = me.getValue(productionCompany)
+        companyMovies = lt.newList(info["listtype"])
+        for i in range(lt.size(companyData["movies"])):
+            movie = getMovie(catalog, lt.getElement(companyData["movies"], i))
+            lt.addLast(companyMovies, movie)
+        
+        return (companyMovies,companyData["vote_average"])
+        
+    return (None,None)
+
+def getMoviesByGenre(catalog, genre):
+    """
+    Retorna un autor con sus libros a partir del nombre del autor
+    """
+    genre = mp.get(catalog["genres"], genre)
+    if genre:
+        genreData = me.getValue(genre)
+        genreMovies = lt.newList(info["listtype"])
+        for i in range(lt.size(genreData["movies"])):
+            movie = getMovie(catalog, lt.getElement(genreData["movies"], i))
+            lt.addLast(genreMovies, movie)
+        
+        return (genreMovies,genreData["vote_count"])
+        
+    return (None,None)
+
 
 # Funciones para agregar informacion al catalogo
 
-def addMovie(catalogCast, catalogoDet, movie):
-    """
-    Esta funcion adiciona una pelicula a la lista de peliculas,
-    adicionalmente lo guarda en un Map usando como llave su Id.
-    Crea una entrada en el Map de Años, para indicar que esta pelicula
-    fue publicada en ese año
-    """
-    lt.addLast(catalogCast['id'], movie)
-    lt.addLast(catalogoDet['id'], movie)
-    mp.put(catalogoDet['title'], movie['id'], movie)
-    mp.put(catalogCast['title'], movie['id'], movie)
+def addMovie(catalogo, data: dict):
+    if mp.contains(catalogo["movies"], data["id"]):
+        movie = mp.get(catalogo["movies"], data["id"])
+        movie = me.getValue(movie)
+        movie.update(data)
+        
+    else:
+        mp.put(catalogo["movies"], data["id"], data)
+        addProductionCompany(catalogo,data)
+        addGenres(catalogo,data)
 
-def addProductionCompany(catalog, company_name):
-    pass
 
-def addMovieDirector(catalog, director_name):
-    pass
+def addProductionCompany (catalogo, movie) :
+    companies = catalogo["production_company"]
+    movieId = movie["id"]
+    name = movie["production_companies"]
+    existauthor = mp.contains(companies, name)
+    if existauthor:
+        entry = mp.get(companies, name)
+        company = me.getValue(entry)
+    else:
+        company = newProductionCompany()
+        mp.put(companies, name, company)
+    lt.addLast(company['movies'], movieId)
 
-def addActor(catalog, actor_name):
-    pass
+    companyAvg = company["vote_average"]
+    movieAvg = movie["vote_average"]
+    if (movieAvg == 0.0):
+        company["vote_average"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(company["movies"])
+        company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
 
-def addGenre(catalog, genre):
-    pass
+def addGenres (catalogo, movie) :
+    genres = catalogo["genres"]
+    movieId = movie["id"]
+    name = movie["genres"]
+    existauthor = mp.contains(genres, name)
+    if existauthor:
+        entry = mp.get(genres, name)
+        genre = me.getValue(entry)
+    else:
+        genre = newGenres()
+        mp.put(genres, name, genre)
+    lt.addLast(genre['movies'], movieId)
 
-def addCountry(catalog, country_name):
-    pass
-
-# =================================
-# Funciones Requerimientos Reto 2
-# =================================
-
-def getmoviesByProductionCompany(catalog, company_name):
-    company_name = mp.get(catalog['production_companies'], company_name)
-    if company_name:
-        return me.getValue(company_name)
-    return None
-
-def getMoviesByDirector(catalog, director_name):
-    director_name = mp.get(catalog['director_name'], director_name)
-    if director_name:
-        return me.getValue(director_name)
-    return None
-
-def getMoviesByActor(catalog, actor_name): #PENDIENTE
-    pass
-
-def getMoviesByGenre(catalog, genre):
-    genre = mp.get(catalog['genres'], genre)
-    if genre:
-        return me.getValue(genre)
-    return None
-
-def getMoviesByCountry(catalog, country_name):
-    country_name = mp.get(catalog['production_countries'], country_name)
-    if country_name:
-        return me.getValue(country_name)
-    return None
+    companyAvg = genre["vote_count"]
+    movieAvg = movie["vote_count"]
+    if (movieAvg == 0.0):
+        genre["vote_count"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(genre["movies"])
+        genre["vote_count"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
 
 # ==============================
 # Funciones de Comparacion
 # ==============================
 
-
-def compareMoviesIds(id1, id2):
+def compareMoviesIds(id, entry):
     """
-    Compara dos ids de las peliculas
-    """
-    if (id1 == id2):
-        return 0
-    elif id1 > id2:
-        return 1
-    else:
-        return -1
-
-def compareMapMoviesIds(id, entry):
-    """
-    Compara dos ids de libros, id es un identificador
-    y entry una pareja llave-valor
+    Compara dos ids de peliculas
     """
     identry = me.getKey(entry)
     if (int(id) == int(identry)):
@@ -238,17 +214,51 @@ def compareMapMoviesIds(id, entry):
     elif (int(id) > int(identry)):
         return 1
     else:
-        return -1
-
-def compareActorByName(keyname, actor):
+        return - 1
+        
+def compareProductionCompanies(id, entry):
     """
-    Compara dos nombres de un actor. El primero es una cadena
-    y el segundo un entry de un map
+    Compara dos ids de compañias productoras
     """
-    authentry = me.getKey(actor)
-    if (keyname == authentry):
+    identry = me.getKey(entry)
+    if (id == identry):
         return 0
-    elif (keyname > authentry):
+    elif (id > identry):
         return 1
     else:
         return -1
+
+def compareGenres(id, entry):
+    """
+    Compara dos ids de compañias productoras
+    """
+    identry = me.getKey(entry)
+    if (id == identry):
+        return 0
+    elif (id > identry):
+        return 1
+    else:
+        return -1
+
+# ___________________________________________________
+#  Requerimientos
+# ___________________________________________________
+
+def descubrirProductoras(catalogo, Productora):
+    movies = getMoviesByCompany(catalogo, Productora)
+    try:
+        moviesNum = lt.size(movies[0])
+    except:
+        moviesNum = 0
+    
+    return (movies[0],movies[1],moviesNum)
+
+
+def entenderGenero(catalogo, genero):
+    movies = getMoviesByGenre(catalogo, genero)
+    try:
+        moviesNum = lt.size(movies[0])
+    except:
+        moviesNum = 0
+    
+    return (movies[0],movies[1],moviesNum)
