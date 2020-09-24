@@ -2,6 +2,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
+from DISClib.DataStructures import arraylist as array
 assert config
 
 # -----------------------------------------------------
@@ -35,7 +36,12 @@ def newCatalog():
                                     loadfactor=info["loadfactor"],
                                     comparefunction=compareProductionCompanies
                                     )
-    
+    catalogo["genres"] = mp.newMap (
+                                    numelements = info["numelements"],
+                                    maptype=info["maptype"],
+                                    loadfactor=info["loadfactor"],
+                                    comparefunction=compareGenres
+                                    )    
     return catalogo
 
 
@@ -115,6 +121,22 @@ def getMoviesByCompany(catalog, companyName):
         
     return (None,None)
 
+def getMoviesByGenre(catalog, genre):
+    """
+    Retorna un autor con sus libros a partir del nombre del autor
+    """
+    genre = mp.get(catalog["genres"], genre)
+    if genre:
+        genreData = me.getValue(genre)
+        genreMovies = lt.newList(info["listtype"])
+        for i in range(lt.size(genreData["movies"])):
+            movie = getMovie(catalog, lt.getElement(genreData["movies"], i))
+            lt.addLast(genreMovies, movie)
+        
+        return (genreMovies,genreData["vote_average"])
+        
+    return (None,None)
+
 
 # Funciones para agregar informacion al catalogo
 
@@ -127,12 +149,34 @@ def addMovie(catalogo, data: dict):
     else:
         mp.put(catalogo["movies"], data["id"], data)
         addProductionCompany(catalogo,data)
+        addGenres(catalogo,data)
 
 
 def addProductionCompany (catalogo, movie) :
     companies = catalogo["production_company"]
     movieId = movie["id"]
     name = movie["production_companies"]
+    existauthor = mp.contains(companies, name)
+    if existauthor:
+        entry = mp.get(companies, name)
+        company = me.getValue(entry)
+    else:
+        company = newProductionCompany()
+        mp.put(companies, name, company)
+    lt.addLast(company['movies'], movieId)
+
+    companyAvg = company["vote_average"]
+    movieAvg = movie["vote_average"]
+    if (movieAvg == 0.0):
+        company["vote_average"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(company["movies"])
+        company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
+
+def addGenres (catalogo, movie) :
+    companies = catalogo["genres"]
+    movieId = movie["id"]
+    name = movie["genres"]
     existauthor = mp.contains(companies, name)
     if existauthor:
         entry = mp.get(companies, name)
@@ -177,4 +221,30 @@ def compareProductionCompanies(id, entry):
         return 1
     else:
         return -1
+
+def compareGenres(id, entry):
+    """
+    Compara dos ids de compañias productoras
+    """
+    identry = me.getKey(entry)
+    if (id == identry):
+        return 0
+    elif (id > identry):
+        return 1
+    else:
+        return -1
+
+# ___________________________________________________
+#  Requerimientos
+# ___________________________________________________
+
+def descubrirProductoras(catalogo, Productora):
+    movies = getMoviesByCompany(catalogo, Productora)
+    try:
+        moviesNum = lt.size(movies[0])
+    except:
+        moviesNum = 0
+    
+    return (movies[0],movies[1],moviesNum)
+
 
