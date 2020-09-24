@@ -35,27 +35,6 @@ def loadCSVFile(link, data, sep=";"):
                     break
                 model.addMovie(data, movie)
         
-    
 
 
-def descubrirProductoras(catalogo, Productora):
-    movies = model.getMoviesByCompany(catalogo, Productora)
-    try:
-        moviesNum = lt.size(movies[0])
-    except:
-        moviesNum = 0
-    
-    return (movies[0],movies[1],moviesNum)
 
-def ejecutarDescubrirProductoras(catalogo):
-    companyName = input("ingrese el nombre de la productora: ")
-    companyData = descubrirProductoras(catalogo, companyName)
-    if companyData[0]:
-        print(f"{companyName} cuenta con {companyData[2]} peliculas y una puntuacion total de {companyData[1]}.")
-        print("Sus titulos son: \n")
-        for i in range(lt.size(companyData[0])):
-            movie = lt.getElement(companyData[0], i)
-            print(f"{movie['title']}")
-            print(f"Con una puntuacion de {movie['vote_average']} por {movie['director_name']} \n")
-    else:
-        print("No hay informacion de esta productora")
