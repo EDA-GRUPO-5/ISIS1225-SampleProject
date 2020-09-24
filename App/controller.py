@@ -3,6 +3,7 @@ from App import model
 import csv
 from DISClib.ADT import list as lt
 from model import elements as elements
+from DISClib.DataStructures import arraylist as array
 
 # ___________________________________________________
 #  Inicializacion del catalogo
@@ -35,6 +36,21 @@ def loadCSVFile(link, data, sep=";"):
                     break
                 model.addMovie(data, movie)
         
+    
 
+# ___________________________________________________
+#  Requerimientos
+# ___________________________________________________
+
+
+
+def iniciarDescubrirProductoras(catalogo, productora):
+    companyData = model.descubrirProductoras(catalogo, productora)
+    titulos=array.newList()
+    for i in range(lt.size(companyData[0])):
+        movie = lt.getElement(companyData[0], i)
+        titulos["elements"].append(movie['title'])
+
+    print(productora,"cuenta con",companyData[2],"películas. Sus títulos son:",titulos["elements"],". Su promedio de votos es:",companyData[1])
 
 
