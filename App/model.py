@@ -2,7 +2,6 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
-from DISClib.DataStructures import arraylist as array
 assert config
 
 # -----------------------------------------------------
@@ -94,6 +93,13 @@ def newProductionCompany():
         }
     return company
 
+def newGenres():
+    genres = {
+        "movies": lt.newList(info["listtype"]),
+        "vote_average": 0
+        }
+    return genres
+
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -174,25 +180,25 @@ def addProductionCompany (catalogo, movie) :
         company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
 
 def addGenres (catalogo, movie) :
-    companies = catalogo["genres"]
+    genres = catalogo["genres"]
     movieId = movie["id"]
     name = movie["genres"]
-    existauthor = mp.contains(companies, name)
+    existauthor = mp.contains(genres, name)
     if existauthor:
-        entry = mp.get(companies, name)
-        company = me.getValue(entry)
+        entry = mp.get(genres, name)
+        genre = me.getValue(entry)
     else:
-        company = newProductionCompany()
-        mp.put(companies, name, company)
-    lt.addLast(company['movies'], movieId)
+        genre = newGenres()
+        mp.put(genres, name, genre)
+    lt.addLast(genre['movies'], movieId)
 
-    companyAvg = company["vote_average"]
+    companyAvg = genre["vote_average"]
     movieAvg = movie["vote_average"]
     if (movieAvg == 0.0):
-        company["vote_average"] = float(movieAvg)
+        genre["vote_average"] = float(movieAvg)
     else:
-        moviesNum = lt.size(company["movies"])
-        company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
+        moviesNum = lt.size(genre["movies"])
+        genre["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
 
 # ==============================
 # Funciones de Comparacion
@@ -248,3 +254,11 @@ def descubrirProductoras(catalogo, Productora):
     return (movies[0],movies[1],moviesNum)
 
 
+def entenderGenero(catalogo, genero):
+    movies = getMoviesByGenre(catalogo, genero)
+    try:
+        moviesNum = lt.size(movies[0])
+    except:
+        moviesNum = 0
+    
+    return (movies[0],movies[1],moviesNum)
