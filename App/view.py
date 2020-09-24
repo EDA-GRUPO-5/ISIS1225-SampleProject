@@ -9,8 +9,8 @@ from time import process_time
 
 #Ruta archivos .csv
 
-castingfile = 'Movies/MoviesCastingRaw-small.csv'
-detailsfile = 'Movies/SmallMoviesDetailsCleaned.csv'
+files = ("Data/SmallMoviesDetailsCleaned.csv", "Data/MoviesCastingRaw-smaller.csv")
+
 
 #Imprimir información de respuesta
 
@@ -88,64 +88,25 @@ def printMoviesbyCountry(country): #Imprime las peliculas que han sido producida
 
 def printMenu():
     print("\nBienvenido")
-    print("1- Inicializar Catálogo")
-    print("2- Cargar información en el catálogo")
-    print("3- Descubrir productora de cine")
-    print("4- Conocer un director")
-    print("5- Conocer un actor")
-    print("6- Entender un genero cinematografico")
-    print("7- Encontrar peliculas por pais")
+    print("1- Cargar Datos")
+    print("2- Descubrir productoras de cine")
     print("0- Salir")
 
 #Ejecutar menu principal
 
 while True:
     printMenu()
-    inputs = input('\nSeleccione una opción para continuar\n')
+    inputs =input('Seleccione una opción para continuar\n')
+    if int(inputs[0])==1: #opcion 1
+        catalogo = controller.initCatalogo()
+        data = True
+        details = controller.loadData(files, catalogo)
+        print(catalogo)
 
-    if int(inputs[0]) == 1:
-        print("Inicializando Catálogo...") #cont es el controlador que se usará de acá en adelante
-        t1_start = process_time()
-        cont = controller.initCatalog()
-        t1_stop = process_time()
-        print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
+    elif int(inputs[0]) == 2:  #opcion 2
+        
+        controller.ejecutarDescubrirProductoras(catalogo)
 
-    elif int(inputs[0]) == 2:
-        print("Cargando información de los archivos...\n")
-        controller.loadData(cont, detailsfile, castingfile)
-        t1_start = process_time()
-        print('Productoras de cine cargadas: ' + str(controller.productionCompanySize(cont)))
-        print('Directores cargadas: ' + str(controller.directorSize(cont)))
-        print('Actores cargados: ' + str(controller.actorSize(cont)))
-        print('Géneros cinematograficos cargados: ' + str(controller.generosSize(cont)))
-        print('Paises cargados: ' + str(controller.countrySize(cont)))
-        t1_stop = process_time()
-        print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
-
-    elif int(inputs[0]) == 3: #Productora de cine
-        productionName = input("Nombre de la productora de cine a buscar: ")
-        productioninfo = controller.getMoviesByProductionCompany(cont, productionName)
-        printProductionCompany(productioninfo)
-
-    elif int(inputs[0]) == 4: #Director
-        directorName = input("Nombre del director a buscar: ")
-        directorinfo = controller.getMoviesByDirector(cont, directorName)
-        printDirectorData(directorinfo)
-
-    elif int(inputs[0]) == 5: #Actor
-        actorName = input("Nombre del actor a buscar: ")
-        actorinfo = controller.getMoviesByActor(cont, actorName)
-        printActorData(actorinfo)
-
-    elif int(inputs[0]) == 6: #Genero cinematografico
-        genreName = input("Nombre del genero cinematografico a buscar: ")
-        generoinfo = controller.getMoviesByGenre(cont, genreName)
-        printGenreData(generoinfo)
-
-    elif int(inputs[0]) == 7: #Pais
-        coutryName = input("Nombre del pais a buscar: ")
-        countryinfo = controller.getMoviesByCountry(cont, coutryName)
-        printMoviesbyCountry(countryinfo)
     else:
         sys.exit(0)
 sys.exit(0)
