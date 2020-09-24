@@ -49,7 +49,7 @@ def iniciarDescubrirProductoras(catalogo, productora):
     print("\n" + productora,"cuenta con " + str(companyData[2]) + " películas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_average) es: " + str(companyData[1]))
 
 def iniciarConocerDirector(catalogo, director):
-    directorData = model.conocerDirctor(catalogo, director)
+    directorData = model.conocerDirector(catalogo, director)
     titles=array.newList()
     for i in range(lt.size(directorData[0])):
         movie = lt.getElement(directorData[0], i)
