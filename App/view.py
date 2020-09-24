@@ -112,7 +112,6 @@ while True:
     
     elif int(inputs[0]) == 4: #opcion 4
         genero = input("\nIngrese el género: ")
-        controller.iniciarEntenderGenero(catalogo, genero)
 
     else:
         sys.exit(0)
