@@ -151,7 +151,7 @@ def getMoviesByDirector(catalog, directorName):
         for i in range(lt.size(directorData["movies"])):
             movie = getMovie(catalog, lt.getElement(directorData["movies"], i))
             lt.addLast(directorMovies, movie)
-        return (companyMovies,companyData["vote_average"])
+        return (directorMovies,directorData["vote_average"])
         
     return (None,None)
 
@@ -222,7 +222,7 @@ def addDirector (catalogo, movie) :
 
     directorAverage = director["vote_average"]
     movieAverage = movie["vote_average"]
-    if (movieAvg == 0.0):
+    if (movieAverage == 0.0):
         director["vote_average"] = float(movieAverage)
     else:
         total = lt.size(director["movies"])
