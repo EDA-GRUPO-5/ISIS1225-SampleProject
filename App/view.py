@@ -18,7 +18,7 @@ def printMenu():
     print("\nBienvenido")
     print("1- Cargar Datos")
     print("2- Descubrir productoras de cine")
-    print("3- Conocer director
+    print("3- Conocer director")
     print("4- Entender un género")
     print("0- Salir")
 
