@@ -121,9 +121,10 @@ while True:
         genero = input("\nIngrese el género: ")
         controller.iniciarEntenderGenero(catalogo, genero)
         t1_stop = process_time()
-    print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
+        print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
     else:
         sys.exit(0)
+
 sys.exit(0)
 
