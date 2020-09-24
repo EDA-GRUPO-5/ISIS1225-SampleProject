@@ -114,14 +114,14 @@ while True:
         productora = input("\nIngrese el nombre de la productora: ")
         controller.iniciarDescubrirProductoras(catalogo, productora)
         t1_stop = process_time()
-        print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
+        print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
     
     elif int(inputs[0]) == 4: #opcion 4
         t1_start = process_time()
         genero = input("\nIngrese el género: ")
         controller.iniciarEntenderGenero(catalogo, genero)
         t1_stop = process_time()
-        print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
+        print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
     else:
         sys.exit(0)
