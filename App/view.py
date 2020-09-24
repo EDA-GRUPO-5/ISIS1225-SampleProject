@@ -100,8 +100,7 @@ while True:
     if int(inputs[0])==1: #opcion 1
         catalogo = controller.initCatalogo()
         data = True
-        details = controller.loadData(files, catalogo)
-        print(catalogo)
+        controller.loadData(files, catalogo)
 
     elif int(inputs[0]) == 2:  #opcion 2
         
