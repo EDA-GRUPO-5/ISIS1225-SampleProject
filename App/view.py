@@ -102,17 +102,26 @@ while True:
     inputs =input('Seleccione una opción para continuar\n')
     
     if int(inputs[0])==1: #opcion 1
+        t1_start = process_time()
         catalogo = controller.initCatalogo()
         data = True
         controller.loadData(files, catalogo)
+        t1_stop = process_time()
+        print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
     
     elif int(inputs[0]) == 2:  #opcion 2
+        t1_start = process_time()
         productora = input("\nIngrese el nombre de la productora: ")
         controller.iniciarDescubrirProductoras(catalogo, productora)
+        t1_stop = process_time()
+        print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
     
     elif int(inputs[0]) == 4: #opcion 4
+        t1_start = process_time()
         genero = input("\nIngrese el género: ")
         controller.iniciarEntenderGenero(catalogo, genero)
+        t1_stop = process_time()
+    print ("Tiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
     else:
         sys.exit(0)
