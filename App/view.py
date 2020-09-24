@@ -10,7 +10,7 @@ from time import process_time
 
 #Ruta archivos .csv
 
-files = ("Data/SmallMoviesDetailsCleaned.csv", "Data/AllMoviesCastingRaw.csv")
+files = ("Data/SmallMoviesDetailsCleaned.csv", "Data/MoviesCastingRaw-small.csv")
 
 #Menu principal
 
