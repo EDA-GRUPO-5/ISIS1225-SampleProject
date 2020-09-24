@@ -51,7 +51,7 @@ def iniciarDescubrirProductoras(catalogo, productora):
         movie = lt.getElement(companyData[0], i)
         titulos["elements"].append(movie['title'])
 
-    print("\n",productora,"cuenta con",companyData[2],"películas. Sus títulos son:",titulos["elements"],". Su promedio de votos es:",companyData[1])
+    print("\n" + productora,"cuenta con",companyData[2],"películas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_average) es:",companyData[1])
 
 
 def iniciarEntenderGenero(catalogo, genero):
@@ -61,4 +61,4 @@ def iniciarEntenderGenero(catalogo, genero):
         movie = lt.getElement(genreData[0], i)
         titulos["elements"].append(movie['title'])
     
-    print("\nEl género",genero,"cuenta con",genreData[2],"peliculas. Sus títulos son:",titulos["elements"],". Su promedio de votos (vote_count) es:,",genreData[1])
+    print("\nEl género" + genero,"cuenta con",genreData[2],"peliculas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_count) es:",genreData[1])
