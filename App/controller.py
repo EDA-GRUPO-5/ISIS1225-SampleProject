@@ -34,10 +34,8 @@ def loadCSVFile(link, data, sep=";"):
                 cont += 1
                 if cont == elements:
                     break
-                model.addMovie(data, movie)
-        
+                model.addMovie(data, movie)       
     
-
 # ___________________________________________________
 #  Requerimientos
 # ___________________________________________________
