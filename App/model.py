@@ -35,6 +35,12 @@ def newCatalog():
                                     loadfactor=info["loadfactor"],
                                     comparefunction=compareProductionCompanies
                                     )
+    catalogo["director_name"] = mp.newMap (
+                                    numelements = info["numelements"],
+                                    maptype=info["maptype"],
+                                    loadfactor=info["loadfactor"],
+                                    comparefunction=compareDirector
+                                    )    
     catalogo["genres"] = mp.newMap (
                                     numelements = info["numelements"],
                                     maptype=info["maptype"],
@@ -93,6 +99,13 @@ def newProductionCompany():
         }
     return company
 
+def newDirector():
+    director = {
+        "movies": lt.newList(info["listtype"]),
+        "vote_average": 0
+        }
+    return director
+
 def newGenres():
     genres = {
         "movies": lt.newList(info["listtype"]),
@@ -123,6 +136,21 @@ def getMoviesByCompany(catalog, companyName):
             movie = getMovie(catalog, lt.getElement(companyData["movies"], i))
             lt.addLast(companyMovies, movie)
         
+        return (companyMovies,companyData["vote_average"])
+        
+    return (None,None)
+
+def getMoviesByDirector(catalog, directorName):
+    """
+    Retorna un autor con sus libros a partir del nombre del autor
+    """
+    direcMov = mp.get(catalog["director_name"], directorName)
+    if direcMov:
+        directorData = me.getValue(direcMov)
+        directorMovies = lt.newList(info["listtype"])
+        for i in range(lt.size(directorData["movies"])):
+            movie = getMovie(catalog, lt.getElement(directorData["movies"], i))
+            lt.addLast(directorMovies, movie)
         return (companyMovies,companyData["vote_average"])
         
     return (None,None)
@@ -178,7 +206,28 @@ def addProductionCompany (catalogo, movie) :
     else:
         moviesNum = lt.size(company["movies"])
         company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
+        
+def addDirector (catalogo, movie) :
+    directores = catalogo["director_name"]
+    movieId = movie["id"]
+    name = movie["director_name"]
+    existdirector = mp.contains(directores, name)
+    if existdirector:
+        entry = mp.get(directores, name)
+        director = me.getValue(entry)
+    else:
+        director = newDirector()
+        mp.put(directores, name, director)
+    lt.addLast(director['movies'], movieId)
 
+    directorAverage = director["vote_average"]
+    movieAverage = movie["vote_average"]
+    if (movieAvg == 0.0):
+        director["vote_average"] = float(movieAverage)
+    else:
+        total = lt.size(director["movies"])
+        director["vote_average"] = ((directorAverage*(total-1)) + float(movieAverage)) / total
+        
 def addGenres (catalogo, movie) :
     genres = catalogo["genres"]
     movieId = movie["id"]
@@ -228,6 +277,15 @@ def compareProductionCompanies(id, entry):
     else:
         return -1
 
+def compareDirector(id, entry):
+    identry = me.getKey(entry)
+    if (id == identry):
+        return 0
+    elif (id > identry):
+        return 1
+    else:
+        return -1
+    
 def compareGenres(id, entry):
     """
     Compara dos ids de compañias productoras
@@ -253,6 +311,14 @@ def descubrirProductoras(catalogo, Productora):
     
     return (movies[0],movies[1],moviesNum)
 
+def conocerDirector(catalogo, director):
+    movies = getMoviesByDirector(catalogo, director)
+    try:
+        moviesNum = lt.size(movies[0])
+    except:
+        moviesNum = 0
+    
+    return (movies[0],movies[1],moviesNum)
 
 def entenderGenero(catalogo, genero):
     movies = getMoviesByGenre(catalogo, genero)
