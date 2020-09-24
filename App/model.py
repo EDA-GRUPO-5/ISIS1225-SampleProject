@@ -4,170 +4,176 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 assert config
 
-#API del TAD Catalogo de Peliculas
+# -----------------------------------------------------
+# API del TAD Catalogo de Películas
+# -----------------------------------------------------
+
+info = {
+    "numelements" : 2000,
+    "maptype" : 'CHAINING',
+    "loadfactor": 1,
+    "listtype" : 'ARRAY_LIST'
+}
+
+elements = info["numelements"]
 
 def newCatalog():
-    catalog = { 'id': None,
-                'genres': None,
-                'original_title': None,
-                'production_companies': None,
-                'production_countries': None,
-                'title': None,
-                'vote_average': None,
-                'vote_count': None,
-                'actor1_name': None,
-                'actor2_name': None,
-                'actor3_name': None,
-                'actor4_name': None,
-                'actor5_name': None,
-                'director_name': None} 
+    catalogo = {
+        "movies" : None,
+        "production_company" : None
+    }
 
-    catalog['movies'] = lt.newList('SINGLE_LINKED', compareNumber)
-    catalog['id'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareNumber)
-    catalog['genres'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-    catalog['original_title'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-    catalog['production_companies'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-    catalog['production_countries'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-    catalog['title'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-    catalog['vote_average'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareNumber)
-    catalog['vote_count'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareNumber)
-    catalog['actor1_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-    catalog['actor2_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-    catalog['actor3_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-    catalog['actor4_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-    catalog['actor5_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-    catalog['director_name'] = mp.newMap(2000,
-                                   maptype='CHAINING',
-                                   loadfactor=0.4,
-                                   comparefunction=compareString)
-
-    return catalog
-
-def newAuthor(name):
-    author = {'name': "", 
-              "peliculas": None,
-              "promedio": 0,  
-              "vote_average": 0}
-    author['name'] = name
-    author['movies'] = lt.newList('ARRAY_LIST', compareString)
-    return author
+    catalogo["movies"] = mp.newMap(
+                                    numelements = info["numelements"],
+                                    maptype=info["maptype"],
+                                    loadfactor=info["loadfactor"],
+                                    comparefunction=compareMoviesIds
+                                    )
+    catalogo["production_company"] = mp.newMap (
+                                    numelements = info["numelements"],
+                                    maptype=info["maptype"],
+                                    loadfactor=info["loadfactor"],
+                                    comparefunction=compareProductionCompanies
+                                    )
+    
+    return catalogo
 
 
-def newTagBook(name, id):
-    tag = {'name': '',
-           'etiqueta': '',
-           'total': 0,
-           'peliculas': None,
-           'count': 0.0}
-    tag['name'] = name
-    tag['etiqueta'] = id
-    tag['peliculas'] = lt.newList()
-    return tag
+def newMovie(data: dict):
+        data["id"] = int(data["id"])
+        data["budget"] = int(data["budget"])
+        data["genres"] = data["genres"]
+        data["imdb_id"] = data["imdb_id"] 
+        data["original_language"] = data["original_language"] 
+        data["original_title"] = data["original_title"] 
+        data["overview"] = data["overview"]
+        data["popularity"] = data["popularity"]
+        data["production_companies"] = data["production_companies"] 
+        data["production_countries"] = data["production_countries"] 
+        data["release_date"] = data["release_date"]
+        data["revenue"] = int(data["revenue"])
+        data["runtime"] = int(data["runtime"]) 
+        data["spoken_languages"] = data["spoken_languages"] 
+        data["status"] = data["status"]
+        data["tagline"] = data["tagline"]
+        data["title"] = data["title"]
+        data["vote_average"] = float(data["vote_average"]) 
+        data["vote_count"] = int(data["vote_count"])
+        data["production_companies_number"] = int(data["production_companies_number"]) 
+        data["production_countries_number"] = int(data["production_countries_number"]) 
+        data["spoken_languages_number"] = int(data["spoken_languages_number"])
+        data["actor1_name"] = data["actor1_name"]
+        data["actor1_gender"] = int(data["actor1_gender"]) 
+        data["actor2_name"] = data["actor2_name"]
+        data["actor2_gender"] = int(data["actor2_gender"])
+        data["actor3_name"] = data["actor3_name"]
+        data["actor3_gender"] = int(data["actor3_gender"]) 
+        data["actor4_name"] = data["actor4_name"]
+        data["actor4_gender"] = int(data["actor4_gender"]) 
+        data["actor5_name"] = data["actor5_name"]
+        data["actor5_gender"] = int(data["actor5_gender"]) 
+        data["actor_number"] = int(data["actor_number"])
+        data["director_name"] = data["director_name"]
+        data["director_gender"] = data["director_gender"] 
+        data["director_number"] = int(data["director_number"]) 
+        data["producer_name"] = data["producer_name"]
+        data["producer_number"] = int(data["producer_number"]) 
+        data["screeplay_name"] = data["screeplay_name"]
+        data["editor_name"] = data["editor_name"]
+
+def newProductionCompany():
+    company = {
+        "movies": lt.newList(info["listtype"]),
+        "vote_average": 0
+        }
+    return company
+
+# ==============================
+# Funciones de consulta
+# ==============================
+
+
+def getMovie(catalog, movieId):
+    movie = mp.get(catalog["movies"], movieId)
+    if movie:
+        return me.getValue(movie)
+    return None
+
+def getMoviesByCompany(catalog, companyName):
+    """
+    Retorna un autor con sus libros a partir del nombre del autor
+    """
+    productionCompany = mp.get(catalog["production_company"], companyName)
+    if productionCompany:
+        companyData = me.getValue(productionCompany)
+        companyMovies = lt.newList(info["listtype"])
+        for i in range(lt.size(companyData["movies"])):
+            movie = getMovie(catalog, lt.getElement(companyData["movies"], i))
+            lt.addLast(companyMovies, movie)
+        
+        return (companyMovies,companyData["vote_average"])
+        
+    return (None,None)
+
 
 # Funciones para agregar informacion al catalogo
 
-def addMovies(catalog, movie):
-    pass
+def addMovie(catalogo, data: dict):
+    if mp.contains(catalogo["movies"], data["id"]):
+        movie = mp.get(catalogo["movies"], data["id"])
+        movie = me.getValue(movie)
+        movie.update(data)
+        
+    else:
+        mp.put(catalogo["movies"], data["id"], data)
+        addProductionCompany(catalogo,data)
 
-#Funciones de consulta
 
-def getMoviesByProductionCompany(catalog, productionName):
-    productor = mp.get(catalog['production_companies'], productionName)
-    if productor:
-        return me.getValue(productor)['movies']
-    return None
+def addProductionCompany (catalogo, movie) :
+    companies = catalogo["production_company"]
+    movieId = movie["id"]
+    name = movie["production_companies"]
+    existauthor = mp.contains(companies, name)
+    if existauthor:
+        entry = mp.get(companies, name)
+        company = me.getValue(entry)
+    else:
+        company = newProductionCompany()
+        mp.put(companies, name, company)
+    lt.addLast(company['movies'], movieId)
 
-def getMoviesByDirector(catalog, directorName):
-    director = mp.get(catalog['director_name'], directorName)
-    if director:
-        return me.getValue(director)['movies']
-    return None
+    companyAvg = company["vote_average"]
+    movieAvg = movie["vote_average"]
+    if (movieAvg == 0.0):
+        company["vote_average"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(company["movies"])
+        company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
 
-def getMoviesByActor(catalog, actorName):
-    pass
+# ==============================
+# Funciones de Comparacion
+# ==============================
 
-def getMoviesByGenre(catalog, genreName):
-    genero = mp.get(catalog['genres'], genreName)
-    if genero:
-        return me.getValue(genero)['movies']
-    return None
-
-def getMoviesByCountry(catalog, countryName):
-    pais = mp.get(catalog['production_countries'], countryName)
-    if pais:
-        return me.getValue(pais)['movies']
-    return None
-
-def productionCompanySize(catalog):
-    return mp.size(catalog['production_companies'])
-
-def directorSize(catalog):
-    return mp.size(catalog['director_name'])
-
-def actorSize(catalog):
-    pass
-
-def generosSize(catalog):
-    return mp.size(catalog['genres'])
-
-def countrySize(catalog):
-    return mp.size(catalog['production_countries'])
-
-#Funciones de comparacion
-
-def compareNumber(id, entry):
+def compareMoviesIds(id, entry):
+    """
+    Compara dos ids de peliculas
+    """
     identry = me.getKey(entry)
     if (int(id) == int(identry)):
         return 0
     elif (int(id) > int(identry)):
         return 1
     else:
-        return -1
-
-def compareString(keyname, entry):
-    authentry = me.getKey(entry)
-    if (keyname == authentry):
+        return - 1
+        
+def compareProductionCompanies(id, entry):
+    """
+    Compara dos ids de compañias productoras
+    """
+    identry = me.getKey(entry)
+    if (id == identry):
         return 0
-    elif (keyname > authentry):
+    elif (id > identry):
         return 1
     else:
         return -1
