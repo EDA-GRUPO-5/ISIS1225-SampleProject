@@ -1,66 +1,60 @@
 import config as cf
 from App import model
 import csv
+from DISClib.ADT import list as lt
+from model import elements as elements
+from DISClib.DataStructures import arraylist as array
 
-#Inicializacion del catalogo
+# ___________________________________________________
+#  Inicializacion del catalogo
+# ___________________________________________________
 
-def initCatalog(): 
-    #Llama la funcion de inicializacion del catalogo del modelo.
-    # catalog es utilizado para interactuar con el modelo.
-    catalog = model.newCatalog()
-    return catalog
+def initCatalogo():
+    catalogo = model.newCatalog()
+    return catalogo
 
-#Funciones para la carga de datos y almacenamiento en los modelos
 
-def loadData(catalog, castingfile, detailsfile): #Carga los datos al modelo
-    loadCasting(catalog, castingfile)
-    loadDetails(catalog, detailsfile)
+# ___________________________________________________
+#  Funciones para la carga de datos y almacenamiento
+#  de datos en los modelos
+# ___________________________________________________
 
-def loadCasting(catalog, castingfile):
-    castingfile = cf.data_dir + castingfile
-    input_file = csv.DictReader(open(castingfile,'r',encoding='utf-8', errors='ignore'))
-    for tag in input_file:
-        model.addCasting(catalog, tag)
+def loadData (data_link, data, sep=";"):
 
-def loadDetails(catalog, detailsfile):
-    detailsfile = cf.data_dir + detailsfile
-    input_file = csv.DictReader(open(detailsfile,'r',encoding='utf-8', errors='ignore'))
-    for tag in input_file:
-        model.addDetails(catalog, tag)
+    for link in data_link:
+            loadCSVFile(link,data,sep)
 
-#Funciones para consultas
+def loadCSVFile(link, data, sep=";"):
+    dialect = csv.excel()
+    dialect.delimiter = sep
+    with open(link, encoding="utf-8-sig") as csvfile:
+            buffer = csv.DictReader(csvfile, dialect=dialect)
+            cont = 0
+            for movie in buffer:
+                cont += 1
+                if cont == elements:
+                    break
+                model.addMovie(data, movie)       
+    
+# ___________________________________________________
+#  Requerimientos
+# ___________________________________________________
 
-def productionCompanySize(catalog):
-    return model.productionCompanySize(catalog)
+def iniciarDescubrirProductoras(catalogo, productora):
+    companyData = model.descubrirProductoras(catalogo, productora)
+    titulos=array.newList()
+    for i in range(lt.size(companyData[0])):
+        movie = lt.getElement(companyData[0], i)
+        titulos["elements"].append(movie['title'])
 
-def directorSize(catalog):
-    return model.directorSize(catalog)
+    print("\n" + productora,"cuenta con" + str(companyData[2]) + "películas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_average) es: " + str(companyData[1]))
 
-def actorSize(catalog):
-    return model.actorSize(catalog)
 
-def generosSize(catalog):
-    return model.generosSize(catalog)
-
-def countrySize(catalog):
-    return model.countrySize(catalog)
-
-def getMoviesByProductionCompany(catalog, productionName):
-    productioninfo = model.getMoviesByProductionCompany(catalog, productionName)
-    return productioninfo
-
-def getMoviesByDirector(catalog, directorName):
-    directorinfo = model.getMoviesByDirector(catalog, directorName)
-    return directorinfo
-
-def getMoviesByActor(catalog, actorName):
-    actorinfo = model.getMoviesByActor(catalog, actorName)
-    return actorinfo
-
-def getMoviesByGenre(catalog, genreName):
-    generoinfo = model.getMoviesByGenre(catalog, genreName)
-    return generoinfo
-
-def getMoviesByCountry(catalog, countryName):
-    countryinfo = model.getMoviesByCountry(catalog, countryName)
-    return countryinfo
+def iniciarEntenderGenero(catalogo, genero):
+    genreData = model.entenderGenero(catalogo, genero)
+    titulos=array.newList()
+    for i in range(lt.size(genreData[0])):
+        movie = lt.getElement(genreData[0], i)
+        titulos["elements"].append(movie['title'])
+    
+    print("\nEl género" + genero,"cuenta con" + str(genreData[2]) + "peliculas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_count) es: " + str(genreData[1]))
