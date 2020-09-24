@@ -42,8 +42,6 @@ def loadCSVFile(link, data, sep=";"):
 #  Requerimientos
 # ___________________________________________________
 
-
-
 def iniciarDescubrirProductoras(catalogo, productora):
     companyData = model.descubrirProductoras(catalogo, productora)
     titulos=array.newList()
