@@ -91,7 +91,7 @@ def printMenu():
     print("\nBienvenido")
     print("1- Cargar Datos")
     print("2- Descubrir productoras de cine")
-    print("4- Enteder un género")
+    print("4- Entender un género")
     print("0- Salir")
 
 #Ejecutar menu principal
