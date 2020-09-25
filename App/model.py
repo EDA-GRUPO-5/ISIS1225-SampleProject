@@ -154,9 +154,9 @@ def getMoviesByGenre(catalog, genre):
         for i in range(lt.size(genreData["movies"])):
             movie = getMovie(catalog, lt.getElement(genreData["movies"], i))
             lt.addLast(genreMovies, movie)
-        
-        return (genreMovies,genreData["vote_count"])
-        
+
+        return (genreMovies,genreData["vote_average"])
+
     return (None,None)
 
 def getMoviesByActor(catalog, actorn):
@@ -197,7 +197,6 @@ def addMovie(catalogo, dataD: dict, dataC: dict):
         addGenres(catalogo, dataD)
         addActor(catalogo, dataC, dataD)
 
-
 def addProductionCompany (catalogo, movie) :
     companies = catalogo["production_company"]
     movieId = movie["id"]
@@ -220,25 +219,25 @@ def addProductionCompany (catalogo, movie) :
         company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
 
 def addGenres (catalogo, movie) :
-    genres = catalogo["genres"]
+    companies = catalogo["genres"]
     movieId = movie["id"]
     name = movie["genres"]
-    existauthor = mp.contains(genres, name)
+    existauthor = mp.contains(companies, name)
     if existauthor:
-        entry = mp.get(genres, name)
-        genre = me.getValue(entry)
+        entry = mp.get(companies, name)
+        company = me.getValue(entry)
     else:
-        genre = newGenres()
-        mp.put(genres, name, genre)
-    lt.addLast(genre['movies'], movieId)
+        company = newProductionCompany()
+        mp.put(companies, name, company)
+    lt.addLast(company['movies'], movieId)
 
-    companyAvg = genre["vote_count"]
-    movieAvg = movie["vote_count"]
+    companyAvg = company["vote_average"]
+    movieAvg = movie["vote_average"]
     if (movieAvg == 0.0):
-        genre["vote_count"] = float(movieAvg)
+        company["vote_average"] = float(movieAvg)
     else:
-        moviesNum = lt.size(genre["movies"])
-        genre["vote_count"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
+        moviesNum = lt.size(company["movies"])
+        company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
 
 def addActor (catalog, movie, details) :
     actorCatalog = catalog['actor']
@@ -384,7 +383,6 @@ def descubrirProductoras(catalogo, Productora):
         moviesNum = 0
     
     return (movies[0],movies[1],moviesNum)
-
 
 def entenderGenero(catalogo, genero):
     movies = getMoviesByGenre(catalogo, genero)

@@ -13,7 +13,6 @@ def initCatalogo():
     catalogo = model.newCatalog()
     return catalogo
 
-
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
