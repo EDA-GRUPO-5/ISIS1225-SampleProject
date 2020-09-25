@@ -18,7 +18,6 @@ def printMenu():
     print("\nBienvenido")
     print("1- Cargar Datos")
     print("2- Descubrir productoras de cine")
-    print("3- Conocer director")
     print("4- Entender un género")
     print("0- Salir")
 
@@ -41,13 +40,6 @@ while True:
         t1_start = process_time()
         productora = input("\nIngrese el nombre de la productora: ")
         controller.iniciarDescubrirProductoras(catalogo, productora)
-        t1_stop = process_time()
-        print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
-        
-    elif int(inputs[0]) == 3: #opcion 3
-        t1_start = process_time()
-        director = input("\nIngrese el nombre del director: ")
-        controller.iniciarConocerDirector(catalogo, director)
         t1_stop = process_time()
         print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
         
