@@ -19,21 +19,20 @@ def initCatalogo():
 # ___________________________________________________
 
 def loadData (data_link, data, sep=";"):
-    linkD, linkC = data_link
-    loadCSVFile(linkC, linkD, data,sep)
+    for link in data_link:
+            loadCSVFile(link,data,sep)
 
-def loadCSVFile(linkC, linkD, data, sep=";"):
+def loadCSVFile(link, data, sep=";"):
     dialect = csv.excel()
     dialect.delimiter = sep
-    with open(linkC, encoding="utf-8-sig") as csvfileC, open(linkD, encoding="utf-8-sig") as csvfileD:
-            bufferC = csv.DictReader(csvfileC, dialect=dialect)
-            bufferD = csv.DictReader(csvfileD, dialect=dialect)
+    with open(link, encoding="utf-8-sig") as csvfile:
+            buffer = csv.DictReader(csvfile, dialect=dialect)
             cont = 0
-            for movieC, movieD in zip(bufferC, bufferD):
+            for movie in buffer:
                 cont += 1
                 if cont == elements:
                     break
-                model.addMovie(data, movieD, movieC)         
+                model.addMovie(data, movie)         
     
 # ___________________________________________________
 #  Requerimientos
@@ -47,15 +46,6 @@ def iniciarDescubrirProductoras(catalogo, productora):
         titulos["elements"].append(movie['title'])
 
     print("\n" + productora,"cuenta con " + str(companyData[2]) + " películas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_average) es: " + str(companyData[1]))
-
-def iniciarConocerDirector(catalogo, director):
-    directorData = model.conocerDirector(catalogo, director)
-    titles=array.newList()
-    for i in range(lt.size(directorData[0])):
-        movie = lt.getElement(directorData[0], i)
-        titles["elements"].append(movie['title'])
-
-    print("\n" + director,"tiene " + str(directorData[2]) + " películas. Los nombres son: " + str(titles["elements"]) + ". Su promedio de votos es: " + str(directorData[1]))
     
 def iniciarEntenderGenero(catalogo, genero):
     genreData = model.entenderGenero(catalogo, genero)
