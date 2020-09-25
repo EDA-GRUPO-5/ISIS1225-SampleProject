@@ -138,9 +138,9 @@ def getMoviesByGenre(catalog, genre):
         for i in range(lt.size(genreData["movies"])):
             movie = getMovie(catalog, lt.getElement(genreData["movies"], i))
             lt.addLast(genreMovies, movie)
-        
-        return (genreMovies,genreData["vote_count"])
-        
+
+        return (genreMovies,genreData["vote_average"])
+
     return (None,None)
 
 
