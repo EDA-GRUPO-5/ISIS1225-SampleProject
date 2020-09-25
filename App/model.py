@@ -155,6 +155,7 @@ def addMovie(catalogo, data: dict):
     else:
         mp.put(catalogo["movies"], data["id"], data)
         addProductionCompany(catalogo,data)
+        addGenres(catalogo,data)
 
 def addProductionCompany (catalogo, movie) :
     companies = catalogo["production_company"]
@@ -178,25 +179,25 @@ def addProductionCompany (catalogo, movie) :
         company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
 
 def addGenres (catalogo, movie) :
-    genres = catalogo["genres"]
+    companies = catalogo["genres"]
     movieId = movie["id"]
     name = movie["genres"]
-    existauthor = mp.contains(genres, name)
+    existauthor = mp.contains(companies, name)
     if existauthor:
-        entry = mp.get(genres, name)
-        genre = me.getValue(entry)
+        entry = mp.get(companies, name)
+        company = me.getValue(entry)
     else:
-        genre = newGenres()
-        mp.put(genres, name, genre)
-    lt.addLast(genre['movies'], movieId)
+        company = newProductionCompany()
+        mp.put(companies, name, company)
+    lt.addLast(company['movies'], movieId)
 
-    companyAvg = genre["vote_count"]
-    movieAvg = movie["vote_count"]
+    companyAvg = company["vote_average"]
+    movieAvg = movie["vote_average"]
     if (movieAvg == 0.0):
-        genre["vote_count"] = float(movieAvg)
+        company["vote_average"] = float(movieAvg)
     else:
-        moviesNum = lt.size(genre["movies"])
-        genre["vote_count"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
+        moviesNum = lt.size(company["movies"])
+        company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
 
 # ==============================
 # Funciones de Comparacion
