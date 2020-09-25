@@ -52,48 +52,6 @@ def newCatalog():
     return catalogo
 
 
-def newMovie(data: dict):
-        data["id"] = int(data["id"])
-        data["budget"] = int(data["budget"])
-        data["genres"] = data["genres"]
-        data["imdb_id"] = data["imdb_id"] 
-        data["original_language"] = data["original_language"] 
-        data["original_title"] = data["original_title"] 
-        data["overview"] = data["overview"]
-        data["popularity"] = data["popularity"]
-        data["production_companies"] = data["production_companies"] 
-        data["production_countries"] = data["production_countries"] 
-        data["release_date"] = data["release_date"]
-        data["revenue"] = int(data["revenue"])
-        data["runtime"] = int(data["runtime"]) 
-        data["spoken_languages"] = data["spoken_languages"] 
-        data["status"] = data["status"]
-        data["tagline"] = data["tagline"]
-        data["title"] = data["title"]
-        data["vote_average"] = float(data["vote_average"]) 
-        data["vote_count"] = int(data["vote_count"])
-        data["production_companies_number"] = int(data["production_companies_number"]) 
-        data["production_countries_number"] = int(data["production_countries_number"]) 
-        data["spoken_languages_number"] = int(data["spoken_languages_number"])
-        data["actor1_name"] = data["actor1_name"]
-        data["actor1_gender"] = int(data["actor1_gender"]) 
-        data["actor2_name"] = data["actor2_name"]
-        data["actor2_gender"] = int(data["actor2_gender"])
-        data["actor3_name"] = data["actor3_name"]
-        data["actor3_gender"] = int(data["actor3_gender"]) 
-        data["actor4_name"] = data["actor4_name"]
-        data["actor4_gender"] = int(data["actor4_gender"]) 
-        data["actor5_name"] = data["actor5_name"]
-        data["actor5_gender"] = int(data["actor5_gender"]) 
-        data["actor_number"] = int(data["actor_number"])
-        data["director_name"] = data["director_name"]
-        data["director_gender"] = data["director_gender"] 
-        data["director_number"] = int(data["director_number"]) 
-        data["producer_name"] = data["producer_name"]
-        data["producer_number"] = int(data["producer_number"]) 
-        data["screeplay_name"] = data["screeplay_name"]
-        data["editor_name"] = data["editor_name"]
-
 def newProductionCompany():
     company = {
         "movies": lt.newList(info["listtype"]),
