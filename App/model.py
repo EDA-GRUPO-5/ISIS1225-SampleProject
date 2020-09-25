@@ -147,16 +147,14 @@ def getMoviesByGenre(catalog, genre):
 # Funciones para agregar informacion al catalogo
 
 def addMovie(catalogo, data: dict):
-    if mp.contains(catalogo["movies"], dataD["id"]):
-        movie = mp.get(catalogo["movies"], dataD["id"])
+    if mp.contains(catalogo["movies"], data["id"]):
+        movie = mp.get(catalogo["movies"], data["id"])
         movie = me.getValue(movie)
-        movie.update(dataD)
-        movie.update(dataC)
-        
+        movie.update(data)
+
     else:
-        mp.put(catalogo["movies"], data["id"])
+        mp.put(catalogo["movies"], data["id"], data)
         addProductionCompany(catalogo,data)
-        addGenres(catalogo, data)
 
 def addProductionCompany (catalogo, movie) :
     companies = catalogo["production_company"]
