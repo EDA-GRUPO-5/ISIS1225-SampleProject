@@ -20,7 +20,9 @@ elements = info["numelements"]
 def newCatalog():
     catalogo = {
         "movies" : None,
-        "production_company" : None
+        "production_company" : None,
+        'genres' : None,
+        'actor' : None
     }
 
     catalogo["movies"] = mp.newMap(
@@ -36,6 +38,12 @@ def newCatalog():
                                     comparefunction=compareProductionCompanies
                                     )
     catalogo["genres"] = mp.newMap (
+                                    numelements = info["numelements"],
+                                    maptype=info["maptype"],
+                                    loadfactor=info["loadfactor"],
+                                    comparefunction=compareGenres
+                                    )
+    catalogo["actor"] = mp.newMap (
                                     numelements = info["numelements"],
                                     maptype=info["maptype"],
                                     loadfactor=info["loadfactor"],
@@ -100,6 +108,14 @@ def newGenres():
         }
     return genres
 
+def newActor():
+    actorDict = {
+        'movies': lt.newList(info['listtype']),
+        'vote_average': 0,
+        'director': lt.newList(info['listtype'])
+        }
+    return actorDict
+
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -129,7 +145,7 @@ def getMoviesByCompany(catalog, companyName):
 
 def getMoviesByGenre(catalog, genre):
     """
-    Retorna un autor con sus libros a partir del nombre del autor
+    Retorna un autor con sus peliculas a partir del nombre del genero
     """
     genre = mp.get(catalog["genres"], genre)
     if genre:
@@ -143,19 +159,43 @@ def getMoviesByGenre(catalog, genre):
         
     return (None,None)
 
+def getMoviesByActor(catalog, actorn):
+    """
+    Retorna un autor con sus peliculas a partir del nombre del actor
+    """
+    actor= mp.get(catalog["actor"], actorn)
+    if actor:
+        actorData = me.getValue(actor)
+        actorAvg = actorData['vote_average']
+        actorMovies = lt.newList(info["listtype"])
+        for i in range(lt.size(actorData["movies"])):
+            movie = lt.getElement(actorData["movies"], i)
+            lt.addLast(actorMovies, movie)
+
+        mostDir = actorData['director']
+        comun = []
+        for i in range(lt.size(actorData['director'])):
+            comun.append(lt.getElement(actorData['director'], i))
+        actorDir = max(set(comun), key = comun.count)
+        return (actorMovies,actorDir, actorAvg)
+        
+    return (None,None)
+
 
 # Funciones para agregar informacion al catalogo
 
-def addMovie(catalogo, data: dict):
-    if mp.contains(catalogo["movies"], data["id"]):
-        movie = mp.get(catalogo["movies"], data["id"])
+def addMovie(catalogo, dataD: dict, dataC: dict):
+    if mp.contains(catalogo["movies"], dataD["id"]):
+        movie = mp.get(catalogo["movies"], dataD["id"])
         movie = me.getValue(movie)
-        movie.update(data)
+        movie.update(dataD)
+        movie.update(dataC)
         
     else:
-        mp.put(catalogo["movies"], data["id"], data)
-        addProductionCompany(catalogo,data)
-        addGenres(catalogo,data)
+        mp.put(catalogo["movies"], dataD["id"], dataD)
+        addProductionCompany(catalogo,dataD)
+        addGenres(catalogo, dataD)
+        addActor(catalogo, dataC, dataD)
 
 
 def addProductionCompany (catalogo, movie) :
@@ -199,6 +239,98 @@ def addGenres (catalogo, movie) :
     else:
         moviesNum = lt.size(genre["movies"])
         genre["vote_count"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
+
+def addActor (catalog, movie, details) :
+    actorCatalog = catalog['actor']
+    movieId = movie['id']
+    nameActor1Value, nameActor2Value, nameActor3Value, nameActor4Value, nameActor5Value = (movie["actor1_name"],movie["actor2_name"],movie["actor3_name"],movie["actor4_name"],movie["actor5_name"])
+    
+    movieAvg = details["vote_average"]
+    
+    #A1
+    existActor1 = mp.contains(actorCatalog, nameActor1Value)
+    if existActor1:
+        entry = mp.get(actorCatalog, nameActor1Value)
+        actorsD = me.getValue(entry)
+    else:
+        actorsD = newActor()
+        mp.put(actorCatalog, nameActor1Value, actorsD)
+    lt.addLast(actorsD['movies'], details['original_title'])
+    lt.addLast(actorsD['director'], movie['director_name'])
+    actorAvg1 = actorsD["vote_average"] 
+    if (movieAvg == 0.0):
+        actorsD["vote_average"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(actorsD["movies"])
+        actorsD["vote_average"] = ((actorAvg1*(moviesNum-1)) + float(movieAvg)) / moviesNum
+
+    #A2
+    existActor2 = mp.contains(actorCatalog, nameActor2Value)
+    if existActor2:
+        entry = mp.get(actorCatalog, nameActor2Value)
+        actorsD = me.getValue(entry)
+    else:
+        actorsD = newActor()
+        mp.put(actorCatalog, nameActor2Value, actorsD)
+    lt.addLast(actorsD['movies'], details['original_title'])
+    lt.addLast(actorsD['director'], movie['director_name'])
+    actorAvg2 = actorsD["vote_average"]
+    if (movieAvg == 0.0):
+        actorsD["vote_average"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(actorsD["movies"])
+        actorsD["vote_average"] = ((actorAvg2*(moviesNum-1)) + float(movieAvg)) / moviesNum
+
+    #A3
+    existActor3 = mp.contains(actorCatalog, nameActor3Value)
+    if existActor3:
+        entry = mp.get(actorCatalog, nameActor3Value)
+        actorsD = me.getValue(entry)
+    else:
+        actorsD = newActor()
+        mp.put(actorCatalog, nameActor3Value, actorsD)
+    lt.addLast(actorsD['movies'], details['original_title'])
+    lt.addLast(actorsD['director'], movie['director_name'])
+    actorAvg3 = actorsD["vote_average"]
+    if (movieAvg == 0.0):
+        actorsD["vote_average"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(actorsD["movies"])
+        actorsD["vote_average"] = ((actorAvg3*(moviesNum-1)) + float(movieAvg)) / moviesNum
+
+    #A4
+    existActor4 = mp.contains(actorCatalog, nameActor4Value)
+    if existActor4:
+        entry = mp.get(actorCatalog, nameActor4Value)
+        actorsD = me.getValue(entry)
+    else:
+        actorsD = newActor()
+        mp.put(actorCatalog, nameActor4Value, actorsD)
+    lt.addLast(actorsD['movies'], details['original_title'])
+    lt.addLast(actorsD['director'], movie['director_name'])
+    actorAvg4 = actorsD["vote_average"]
+    if (movieAvg == 0.0):
+        actorsD["vote_average"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(actorsD["movies"])
+        actorsD["vote_average"] = ((actorAvg4*(moviesNum-1)) + float(movieAvg)) / moviesNum
+
+    #A5
+    existActor5 = mp.contains(actorCatalog, nameActor5Value)
+    if existActor5:
+        entry = mp.get(actorCatalog, nameActor5Value)
+        actorsD = me.getValue(entry)
+    else:
+        actorsD = newActor()
+        mp.put(actorCatalog, nameActor5Value, actorsD)
+    lt.addLast(actorsD['movies'], details['original_title'])
+    lt.addLast(actorsD['director'], movie['director_name'])
+    actorAvg5 = actorsD["vote_average"]
+    if (movieAvg == 0.0):
+        actorsD["vote_average"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(actorsD["movies"])
+        actorsD["vote_average"] = ((actorAvg5*(moviesNum-1)) + float(movieAvg)) / moviesNum
 
 # ==============================
 # Funciones de Comparacion
@@ -262,3 +394,12 @@ def entenderGenero(catalogo, genero):
         moviesNum = 0
     
     return (movies[0],movies[1],moviesNum)
+
+def entenderActor(catalogo, actor):
+    movies = getMoviesByActor(catalogo, actor)
+    try:
+        moviesNum = lt.size(movies[0])
+    except:
+        moviesNum = 0
+    
+    return (movies[0], movies[1], movies[2], moviesNum)

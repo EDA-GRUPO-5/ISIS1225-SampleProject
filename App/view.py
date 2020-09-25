@@ -10,7 +10,7 @@ from time import process_time
 
 #Ruta archivos .csv
 
-files = ("Data/SmallMoviesDetailsCleaned.csv", "Data/AllMoviesCastingRaw.csv")
+files = ("Data/SmallerMoviesDetailsCleaned.csv", "Data/MoviesCastingRaw-smaller.csv")
 
 
 #Imprimir información de respuesta
@@ -91,6 +91,7 @@ def printMenu():
     print("\nBienvenido")
     print("1- Cargar Datos")
     print("2- Descubrir productoras de cine")
+    print("3- Entender un actor")
     print("4- Enteder un género")
     print("0- Salir")
 
@@ -113,6 +114,14 @@ while True:
         t1_start = process_time()
         productora = input("\nIngrese el nombre de la productora: ")
         controller.iniciarDescubrirProductoras(catalogo, productora)
+        t1_stop = process_time()
+        print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
+
+    elif int(inputs[0]) == 3: #opcion 3
+        t1_start = process_time()
+        actor = input("\nIngrese el actor: ")
+        #actor = ('Turo Pajala', 'Kati Outinen', 'Maggie Cheung', 'Matti Pellonpää')
+        controller.iniciarEntenderActor(catalogo, actor)
         t1_stop = process_time()
         print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
     
