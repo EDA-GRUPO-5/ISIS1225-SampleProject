@@ -19,7 +19,9 @@ def printMenu():
     print("1- Cargar Datos")
     print("2- Descubrir productoras de cine")
     print("3- Entender un actor")
-    print("4- Enteder un género")
+    print("4- Entender un género")
+    print("5- Conocer un director")
+    print("6- Peliculas por pais")
     print("0- Salir")
 
 #Ejecutar menu principal
@@ -56,6 +58,20 @@ while True:
         t1_start = process_time()
         genero = input("\nIngrese el género: ")
         controller.iniciarEntenderGenero(catalogo, genero)
+        t1_stop = process_time()
+        print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
+        
+    elif int(inputs[0]) == 5: #opcion 5
+        t1_start = process_time()
+        director = input("\nIngrese el director: ")
+        controller.iniciarConocerdirector(catalogo, director)
+        t1_stop = process_time()
+        print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
+
+    elif int(inputs[0]) == 6: #opcion 6
+        t1_start = process_time()
+        pais = input("\nIngrese el pais: ")
+        controller.iniciarPeliculasPais(catalogo, pais)
         t1_stop = process_time()
         print ("\nTiempo de ejecucion:", t1_stop-t1_start,"segundos")
 
