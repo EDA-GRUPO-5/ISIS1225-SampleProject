@@ -64,8 +64,8 @@ def iniciarEntenderGenero(catalogo, genero):
         titulos["elements"].append(movie['title'])
     
     print("\nEl género " + genero,"cuenta con " + str(genreData[2]) + " peliculas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_count) es: " + str(genreData[1]))
-    
-    def iniciarConocerdirector(catalogo, director):
+   
+def iniciarConocerdirector(catalogo, director):
     directorRta = model.entenderDirector(catalogo, director)
     movie = ''
     for i in range(lt.size(directorRta[0])):
