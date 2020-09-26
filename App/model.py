@@ -22,7 +22,9 @@ def newCatalog():
         "movies" : None,
         "production_company" : None,
         'genres' : None,
-        'actor' : None
+        'actor' : None,
+        'director_name': None,
+        'production_countries': None
     }
 
     catalogo["movies"] = mp.newMap(
@@ -48,7 +50,20 @@ def newCatalog():
                                     maptype=info["maptype"],
                                     loadfactor=info["loadfactor"],
                                     comparefunction=compareGenres
-                                    )    
+                                    )
+    catalogo["director_name"] = mp.newMap (
+                                    numelements = info["numelements"],
+                                    maptype=info["maptype"],
+                                    loadfactor=info["loadfactor"],
+                                    comparefunction=compareGenres
+                                    )  
+    catalogo["production_countries"] = mp.newMap (
+                                    numelements = info["numelements"],
+                                    maptype=info["maptype"],
+                                    loadfactor=info["loadfactor"],
+                                    comparefunction=compareProductionCompanies
+                                    )  
+    
     return catalogo
 
 
@@ -73,6 +88,20 @@ def newActor():
         'director': lt.newList(info['listtype'])
         }
     return actorDict
+
+def newDirector():
+    directorMov = {
+        "movies": lt.newList(info["listtype"]),
+        "vote_average": 0
+        }
+    return directorMov
+
+def newCountry():
+    countryMov = {
+        "movies": lt.newList(info["listtype"]),
+        "vote_average": 0
+        }
+    return countryMov
 
 # ==============================
 # Funciones de consulta
@@ -139,6 +168,33 @@ def getMoviesByActor(catalog, actorn):
         
     return (None,None)
 
+def getDirector(catalog, directorM):
+
+    director= mp.get(catalog["director_name"], directorM)
+    if director:
+        directorData = me.getValue(director)
+        directorAvg = directorData['vote_average']
+        directorMovies = lt.newList(info["listtype"])
+        for i in range(lt.size(directorData["movies"])):
+            movie = lt.getElement(directorData["movies"], i)
+            lt.addLast(directorMovies, movie)
+
+        return (directorMovies, directorAvg)
+        
+    return (None,None)
+
+def getMoviesByCountry(catalog, countryName):
+    countryM = mp.get(catalog["production_countries"], countryName)
+    if countryM:
+        countryData = me.getValue(countryM)
+        countryMovies = lt.newList(info["listtype"])
+        for i in range(lt.size(countryData["movies"])):
+            movie = getMovie(catalog, lt.getElement(countryData["movies"], i))
+            lt.addLast(countryMovies, movie)
+        
+        return (countryMovies,countryData["vote_average"])
+        
+    return (None,None)
 
 # Funciones para agregar informacion al catalogo
 
@@ -154,6 +210,8 @@ def addMovie(catalogo, dataD: dict, dataC: dict):
         addProductionCompany(catalogo,dataD)
         addGenres(catalogo, dataD)
         addActor(catalogo, dataC, dataD)
+        addDirector(catalogo, dataC, dataD)
+        addCountry(catalogo,dataD)
 
 def addProductionCompany (catalogo, movie) :
     companies = catalogo["production_company"]
@@ -288,7 +346,49 @@ def addActor (catalog, movie, details) :
     else:
         moviesNum = lt.size(actorsD["movies"])
         actorsD["vote_average"] = ((actorAvg5*(moviesNum-1)) + float(movieAvg)) / moviesNum
+  
+def addDirector (catalog, movie, details) :
+    companies = catalog["director_name"]
+    movieId = movie["id"]
+    name = movie["director_name"]
+    existauthor = mp.contains(companies, name)
+    if existauthor:
+        entry = mp.get(companies, name)
+        company = me.getValue(entry)
+    else:
+        company = newDirector()
+        mp.put(companies, name, company)
+    lt.addLast(company['movies'], details['original_title'])
 
+    companyAvg = company["vote_average"]
+    movieAvg = details["vote_average"]
+    if (movieAvg == 0.0):
+        company["vote_average"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(company["movies"])
+        company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
+
+def addCountry (catalogo, movie) :
+    companies = catalogo["production_countries"]
+    movieId = movie["id"]
+    name = movie["production_countries"]
+    existauthor = mp.contains(companies, name)
+    if existauthor:
+        entry = mp.get(companies, name)
+        company = me.getValue(entry)
+    else:
+        company = newCountry()
+        mp.put(companies, name, company)
+    lt.addLast(company['movies'], movieId)
+
+    companyAvg = company["vote_average"]
+    movieAvg = movie["vote_average"]
+    if (movieAvg == 0.0):
+        company["vote_average"] = float(movieAvg)
+    else:
+        moviesNum = lt.size(company["movies"])
+        company["vote_average"] = ((companyAvg*(moviesNum-1)) + float(movieAvg)) / moviesNum
+        
 # ==============================
 # Funciones de Comparacion
 # ==============================
@@ -359,3 +459,21 @@ def entenderActor(catalogo, actor):
         moviesNum = 0
     
     return (movies[0], movies[1], movies[2], moviesNum)
+
+def entenderDirector(catalogo, director):
+    movies = getDirector(catalogo, director)
+    try:
+        moviesNum = lt.size(movies[0])
+    except:
+        moviesNum = 0
+    
+    return (movies[0], movies[1], moviesNum)
+
+def entenderPais(catalogo, pais):
+    movies = getMoviesByCountry(catalogo, pais)
+    try:
+        moviesNum = lt.size(movies[0])
+    except:
+        moviesNum = 0
+    
+    return (movies[0],movies[1],moviesNum)
