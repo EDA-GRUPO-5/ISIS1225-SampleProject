@@ -56,7 +56,6 @@ def iniciarEntenderActor(catalogo, actor):
     
     print(f'El actor {actor} cuenta con {actorRta[3]} peliculas cuyos titulos son: {movie[:-2]}\nEl promedio de las peliculas en las que participa es: {actorRta[2]}\nEl director con el que mas colaboraciones ha tenido es: {actorRta[1]}')
 
-
 def iniciarEntenderGenero(catalogo, genero):
     genreData = model.entenderGenero(catalogo, genero)
     titulos=array.newList()
@@ -65,3 +64,20 @@ def iniciarEntenderGenero(catalogo, genero):
         titulos["elements"].append(movie['title'])
     
     print("\nEl género " + genero,"cuenta con " + str(genreData[2]) + " peliculas. Sus títulos son: " + str(titulos["elements"]) + ". Su promedio de votos (vote_count) es: " + str(genreData[1]))
+    
+    def iniciarConocerdirector(catalogo, director):
+    directorRta = model.entenderDirector(catalogo, director)
+    movie = ''
+    for i in range(lt.size(directorRta[0])):
+        movie += lt.getElement(directorRta[0], i) + ', '
+
+    print(f"Las peliculas son: {movie[:-2]}\nTotal de peliculas: {directorRta[2]}\nPromedio de las peliculas: {directorRta[1]}")
+
+def iniciarPeliculasPais(catalogo, pais):
+    paisRta = model.entenderPais(catalogo, pais)
+    titulos=array.newList()
+    for i in range(lt.size(paisRta[0])):
+        movie = lt.getElement(paisRta[0], i)
+        titulos["elements"].append(movie['title'])
+    
+    print("Las peliculas son: " + str(titulos["elements"]) + "\nTotal de peliculas: " + str(paisRta[2]) +"\nPromedio de las peliculas: "+ str(paisRta[1]))
